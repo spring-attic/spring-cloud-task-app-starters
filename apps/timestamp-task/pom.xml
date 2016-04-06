@@ -86,7 +86,7 @@
             <configuration>
               <images>
                 <image>
-                  <name>null/${project.artifactId}</name>
+                  <name>springcloudtask/${project.artifactId}</name>
                   <build>
                     <from>anapsix/alpine-java:8</from>
                     <volumes>

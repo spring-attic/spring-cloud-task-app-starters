@@ -9,5 +9,7 @@
   <modules>
     <module>timestamp-task</module>
     <module>spark-client-task</module>
+    <module>spark-cluster-task</module>
+    <module>spark-yarn-task</module>
   </modules>
 </project>

@@ -32,6 +32,18 @@
                 <version>1.0.0.BUILD-SNAPSHOT</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework.cloud.task.app</groupId>
+                <artifactId>spring-cloud-starter-task-spark-cluster</artifactId>
+                <version>1.0.0.BUILD-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud.task.app</groupId>
+                <artifactId>spring-cloud-starter-task-spark-yarn</artifactId>
+                <version>1.0.0.BUILD-SNAPSHOT</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

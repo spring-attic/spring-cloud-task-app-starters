@@ -32,6 +32,8 @@
                     <generatedApps>
                         <timestamp-task/>
                         <spark-client-task/>
+                        <spark-cluster-task/>
+                        <spark-yarn-task/>
                     </generatedApps>
                 </configuration>
             </plugin>

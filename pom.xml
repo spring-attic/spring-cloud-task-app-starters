@@ -15,7 +15,9 @@
   <modules>
     <module>spring-cloud-starter-task-timestamp</module>
     <module>spring-cloud-starter-task-spark-client</module>
-    <module>spring-cloud-task-modules-common-configuration</module>
+    <module>spring-cloud-starter-task-spark-cluster</module>
+    <module>spring-cloud-starter-task-spark-yarn</module>
+    <module>spring-cloud-task-spark-common-configuration</module>
     <module>spring-cloud-task-app-dependencies</module>
     <module>spring-cloud-task-app-generator</module>
     <module>apps</module>

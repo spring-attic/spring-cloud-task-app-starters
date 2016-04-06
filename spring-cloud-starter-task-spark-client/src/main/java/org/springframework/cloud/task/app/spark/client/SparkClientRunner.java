@@ -47,7 +47,7 @@ public class SparkClientRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        ArrayList<String> argList = new ArrayList<String>();
+        ArrayList<String> argList = new ArrayList<>();
         if (StringUtils.hasText(config.getAppName())) {
             argList.add("--name");
             argList.add(config.getAppName());

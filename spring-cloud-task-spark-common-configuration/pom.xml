@@ -8,9 +8,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-cloud-task-modules-common-configuration</artifactId>
+    <artifactId>spring-cloud-task-spark-common-configuration</artifactId>
     <packaging>jar</packaging>
-    <name>spring-cloud-task-modules-common-configuration</name>
+    <name>spring-cloud-task-spark-common-configuration</name>
 
     <dependencies>
         <dependency>
