@@ -20,6 +20,7 @@
     <module>spring-cloud-task-spark-common-configuration</module>
     <module>spring-cloud-task-app-dependencies</module>
     <module>spring-cloud-task-app-generator</module>
+    <module>spring-cloud-task-app-starters-docs</module>
   </modules>
   <scm>
     <connection>scm:git:git://github.com/spring-cloud/spring-cloud-task-app-starters.git</connection>
