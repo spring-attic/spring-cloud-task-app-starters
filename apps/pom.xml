@@ -12,4 +12,13 @@
     <module>spark-cluster-task</module>
     <module>spark-yarn-task</module>
   </modules>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.14.2</version>
+      </plugin>
+    </plugins>
+  </build>
 </project>

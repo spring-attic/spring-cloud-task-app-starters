@@ -30,7 +30,9 @@
                         <version>1.0.0.BUILD-SNAPSHOT</version>
                     </bom>
                     <generatedApps>
-                        <timestamp-task/>
+                        <timestamp-task>
+                            <testsIgnored>true</testsIgnored>
+                        </timestamp-task>
                         <spark-client-task/>
                         <spark-cluster-task/>
                         <spark-yarn-task/>

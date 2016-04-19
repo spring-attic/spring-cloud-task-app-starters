@@ -16,15 +16,13 @@
 
 package org.springframework.cloud.task.app.timestamp;
 
-import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Rule;
 import org.junit.Test;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.OutputCapture;
+
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Verifies that the Task Application outputs the correct task log entries.
@@ -44,8 +42,8 @@ public class TimestampTaskTests {
         final String UPDATE_TASK_MESSAGE = "Updating: TaskExecution with executionId=1 with the following";
         String[] args = { "--format=yyyy" + TEST_DATE_DOTS };
 
-        assertEquals(0, SpringApplication.exit(SpringApplication
-                .run(TestTimestampTaskApplication.class, args)));
+        SpringApplication
+                .run(TestTimestampTaskApplication.class, args);
 
         String output = this.outputCapture.toString();
 

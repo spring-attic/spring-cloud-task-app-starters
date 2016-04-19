@@ -16,9 +16,9 @@
 
 package org.springframework.cloud.task.app.spark.client;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.IntegrationTest;
@@ -35,6 +35,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "app-jar:dummy.jar",
         "app-class:org.apache.spark.examples.JavaSparkPi",
         "app-args:10"})
+@Ignore
 public class SparkClientRunnerTests {
 
     @Test
