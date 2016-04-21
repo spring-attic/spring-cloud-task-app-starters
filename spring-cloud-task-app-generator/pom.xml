@@ -29,18 +29,12 @@
                         <version>${project.version}</version>
                     </bom>
                     <generatedApps>
-                        <timestamp-task>
-                            <testsIgnored>true</testsIgnored>
-                        </timestamp-task>
-                        <spark-client-task>
-                            <testsIgnored>true</testsIgnored>
-                        </spark-client-task>
-                        <spark-cluster-task>
-                            <testsIgnored>true</testsIgnored>
-                        </spark-cluster-task>
-                        <spark-yarn-task>
-                            <testsIgnored>true</testsIgnored>
-                        </spark-yarn-task>
+                        <timestamp-task />
+                        <spark-client-task/>
+                        <spark-cluster-task/>
+                        <spark-yarn-task/>
+                        <sqoop-job-task/>
+                        <sqoop-tool-task/>
                     </generatedApps>
                 </configuration>
             </plugin>
