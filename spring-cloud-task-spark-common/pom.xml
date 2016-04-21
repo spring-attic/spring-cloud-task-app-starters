@@ -8,19 +8,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring-cloud-task-spark-common-configuration</artifactId>
+    <artifactId>spring-cloud-task-spark-common</artifactId>
     <packaging>jar</packaging>
-    <name>spring-cloud-task-spark-common-configuration</name>
+    <name>spring-cloud-task-spark-common</name>
 
     <dependencies>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hsqldb</groupId>
