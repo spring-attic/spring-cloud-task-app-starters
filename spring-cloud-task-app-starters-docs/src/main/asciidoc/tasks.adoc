@@ -1,0 +1,8 @@
+[[spring-cloud-task-modules-tasks]]
+
+:leveloffset: +1
+
+[[spring-cloud-task-modules-spark-client]]
+include::{repo-root}/spring-cloud-starter-task-spark-client/README.adoc[tags=ref-doc]
+
+:leveloffset: -1

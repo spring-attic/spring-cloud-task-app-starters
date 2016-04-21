@@ -1,0 +1,25 @@
+//tag::ref-doc[]
+= Spark Client Task
+
+TODO
+
+== Options
+
+// see syntax (soon to be automatically generated) in spring-cloud-stream starters
+The **$$spark-client$$** $$task$$ has the following options:
+
+$$foo$$:: $$some description$$ *($$String$$, no default)*
+
+//end::ref-doc[]
+
+== Build
+
+```
+$ mvn clean package
+```
+
+== Run
+
+```
+$ java -jar target/spark-client-task-${version}-exec.jar
+```
