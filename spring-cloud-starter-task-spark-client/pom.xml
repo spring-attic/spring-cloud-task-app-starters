@@ -50,8 +50,7 @@
 
         <dependency>
             <groupId>org.springframework.cloud.task.app</groupId>
-            <artifactId>spring-cloud-task-spark-common-configuration</artifactId>
-            <version>1.0.0.BUILD-SNAPSHOT</version>
+            <artifactId>spring-cloud-task-spark-common</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>

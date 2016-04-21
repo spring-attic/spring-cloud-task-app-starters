@@ -17,6 +17,10 @@
     <name>spring-cloud-task-app-dependencies</name>
     <description>Spring Cloud Task App Starters Dependencies</description>
 
+    <properties>
+        <spring-data-hadoop.version>2.4.0.M1</spring-data-hadoop.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
 
@@ -42,6 +46,36 @@
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-spark-yarn</artifactId>
                 <version>1.0.0.BUILD-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud.task.app</groupId>
+                <artifactId>spring-cloud-starter-task-sqoop-job</artifactId>
+                <version>1.0.0.BUILD-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud.task.app</groupId>
+                <artifactId>spring-cloud-starter-task-sqoop-tool</artifactId>
+                <version>1.0.0.BUILD-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud.task.app</groupId>
+                <artifactId>spring-cloud-task-spark-common</artifactId>
+                <version>1.0.0.BUILD-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud.task.app</groupId>
+                <artifactId>spring-cloud-task-sqoop-common</artifactId>
+                <version>1.0.0.BUILD-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-hadoop-boot</artifactId>
+                <version>${spring-data-hadoop.version}</version>
             </dependency>
 
         </dependencies>

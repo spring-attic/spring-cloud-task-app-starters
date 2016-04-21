@@ -11,6 +11,8 @@
     <module>spark-client-task</module>
     <module>spark-cluster-task</module>
     <module>spark-yarn-task</module>
+    <module>sqoop-job-task</module>
+    <module>sqoop-tool-task</module>
   </modules>
   <build>
     <plugins>

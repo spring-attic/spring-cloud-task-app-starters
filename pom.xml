@@ -17,7 +17,10 @@
     <module>spring-cloud-starter-task-spark-client</module>
     <module>spring-cloud-starter-task-spark-cluster</module>
     <module>spring-cloud-starter-task-spark-yarn</module>
-    <module>spring-cloud-task-spark-common-configuration</module>
+    <module>spring-cloud-starter-task-sqoop-job</module>
+    <module>spring-cloud-starter-task-sqoop-tool</module>
+    <module>spring-cloud-task-spark-common</module>
+    <module>spring-cloud-task-sqoop-common</module>
     <module>spring-cloud-task-app-dependencies</module>
     <module>spring-cloud-task-app-generator</module>
     <module>apps</module>
@@ -31,6 +34,17 @@
     <java.version>1.7</java.version>
     <spring.cloud.task.core.version>1.0.0.BUILD-SNAPSHOT</spring.cloud.task.core.version>
   </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud.task.app</groupId>
+        <artifactId>spring-cloud-task-app-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <build>
     <pluginManagement>
       <plugins>
