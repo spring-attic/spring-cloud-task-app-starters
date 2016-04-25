@@ -1,3 +1,4 @@
+apps/
 /application.yml
 /application.properties
 asciidoctor.css

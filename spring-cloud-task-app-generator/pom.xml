@@ -21,7 +21,7 @@
                 <configuration>
                     <javaVersion>1.7</javaVersion>
                     <generatedProjectHome>${session.executionRootDirectory}/apps</generatedProjectHome>
-                    <generatedProjectVersion>1.0.0.BUILD-SNAPSHOT</generatedProjectVersion>
+                    <generatedProjectVersion>${project.version}</generatedProjectVersion>
                     <applicationType>task</applicationType>
                     <bom>
                         <name>scs-bom</name>
@@ -33,9 +33,15 @@
                         <timestamp-task>
                             <testsIgnored>true</testsIgnored>
                         </timestamp-task>
-                        <spark-client-task/>
-                        <spark-cluster-task/>
-                        <spark-yarn-task/>
+                        <spark-client-task>
+                            <testsIgnored>true</testsIgnored>
+                        </spark-client-task>
+                        <spark-cluster-task>
+                            <testsIgnored>true</testsIgnored>
+                        </spark-cluster-task>
+                        <spark-yarn-task>
+                            <testsIgnored>true</testsIgnored>
+                        </spark-yarn-task>
                     </generatedApps>
                 </configuration>
             </plugin>

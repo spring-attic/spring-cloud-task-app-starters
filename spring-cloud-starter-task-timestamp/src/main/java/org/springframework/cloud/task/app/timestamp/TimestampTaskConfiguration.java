@@ -16,25 +16,26 @@
 
 package org.springframework.cloud.task.app.timestamp;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
+import org.springframework.context.annotation.Configuration;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A commandline runner that prints a timestamp.
  */
 @EnableTask
+@Configuration
 @EnableConfigurationProperties({ TimestampTaskProperties.class })
-public class TimestampTask implements CommandLineRunner {
+public class TimestampTaskConfiguration implements CommandLineRunner {
 
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(TimestampTask.class);
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(TimestampTaskConfiguration.class);
 
     @Autowired
     private TimestampTaskProperties config;

@@ -28,6 +28,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 /**
@@ -37,10 +38,11 @@ import org.springframework.util.StringUtils;
  * @author Thomas Risberg
  */
 @EnableTask
+@Configuration
 @EnableConfigurationProperties({ SparkAppCommonTaskProperties.class })
-public class SparkClientRunner implements CommandLineRunner {
+public class SparkClientTaskConfiguration implements CommandLineRunner {
 
-    private static final Logger logger = LoggerFactory.getLogger(SparkClientRunner.class);
+    private static final Logger logger = LoggerFactory.getLogger(SparkClientTaskConfiguration.class);
 
     @Autowired
     private SparkAppCommonTaskProperties config;
