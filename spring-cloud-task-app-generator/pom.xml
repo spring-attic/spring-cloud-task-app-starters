@@ -27,7 +27,7 @@
                         <name>scs-bom</name>
                         <groupId>org.springframework.cloud.task.app</groupId>
                         <artifactId>spring-cloud-task-app-dependencies</artifactId>
-                        <version>1.0.0.BUILD-SNAPSHOT</version>
+                        <version>${project.version}</version>
                     </bom>
                     <generatedApps>
                         <timestamp-task>

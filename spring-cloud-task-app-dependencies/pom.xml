@@ -23,25 +23,25 @@
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-timestamp</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-spark-client</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-spark-cluster</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-spark-yarn</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>${project.version}</version>
             </dependency>
 
         </dependencies>
