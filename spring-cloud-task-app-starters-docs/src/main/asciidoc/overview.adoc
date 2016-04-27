@@ -1,5 +1,5 @@
 [[overview]]
-== Spring Cloud Stream Starters
+== Spring Cloud Task Starters
 
 This section goes into more detail about how you can work with Spring Cloud Task Starters as standalone applications or with Spring Cloud Data Flow.
 
