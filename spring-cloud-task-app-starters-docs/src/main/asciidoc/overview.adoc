@@ -1,7 +1,7 @@
 [[overview]]
-== Spring Cloud Stream Modules 
+== Spring Cloud Stream Starters
 
-This section goes into more detail about how you can work with Spring Cloud Stream Module as standalone applications or with Spring Cloud Data Flow.
+This section goes into more detail about how you can work with Spring Cloud Task Starters as standalone applications or with Spring Cloud Data Flow.
 
 === Overview
 

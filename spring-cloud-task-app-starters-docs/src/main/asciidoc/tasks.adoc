@@ -1,8 +1,10 @@
 [[spring-cloud-task-modules-tasks]]
 
 :leveloffset: +1
+:app-starters-root:  https://raw.githubusercontent.com/spring-cloud/spring-cloud-task-app-starters/master
+
 
 [[spring-cloud-task-modules-spark-client]]
-include::{repo-root}/spring-cloud-starter-task-spark-client/README.adoc[tags=ref-doc]
+include::{app-starters-root}/spring-cloud-starter-task-spark-client/README.adoc[tags=ref-doc]
 
 :leveloffset: -1
