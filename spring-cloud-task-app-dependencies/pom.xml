@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <artifactId>spring-cloud-dependencies-parent</artifactId>
         <groupId>org.springframework.cloud</groupId>
         <version>1.1.0.RC1</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <groupId>org.springframework.cloud.task.app</groupId>
     <artifactId>spring-cloud-task-app-dependencies</artifactId>
-    <version>1.0.0.BUILD-SNAPSHOT</version>
+    <version>1.0.0.M1</version>
     <packaging>pom</packaging>
     <name>spring-cloud-task-app-dependencies</name>
     <description>Spring Cloud Task App Starters Dependencies</description>
@@ -23,25 +22,25 @@
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-timestamp</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.0.M1</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-spark-client</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.0.M1</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-spark-cluster</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.0.M1</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-spark-yarn</artifactId>
-                <version>${project.version}</version>
+                <version>1.0.0.M1</version>
             </dependency>
 
         </dependencies>
