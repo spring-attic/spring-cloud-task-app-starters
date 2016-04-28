@@ -17,7 +17,7 @@
             <plugin>
                 <groupId>org.springframework.cloud.stream.app.plugin</groupId>
                 <artifactId>spring-cloud-stream-app-maven-plugin</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>${scs-app-maven-plugin.version}</version>
                 <configuration>
                     <javaVersion>1.7</javaVersion>
                     <generatedProjectHome>${session.executionRootDirectory}/apps</generatedProjectHome>
