@@ -7,7 +7,34 @@ This project provides a collection of starters for Spring Cloud Tasks for common
 Clone the repo and type
 
 ----
-$ ./mvnw clean package
+$ ./mvnw clean install
 ----
+
+*Quick Introduction*
+
+Spring Cloud Task App Starters contains starter projects for various tasks used in
+https://github.com/spring-cloud/spring-cloud-task[Spring Cloud Task].
+
+There is a convenient script provided to generate Spring Boot Applications for all the starters. These out of the box
+generated applications are very basic in functionality and thus you may want to create similar apps
+using the starters as a basis.
+
+*Generating Out of the Box Tasks*
+
+----
+$ ./generateApps.sh
+
+$ cd apps
+
+$ mvn clean install
+
+Here you will find the auto generated apps.
+----
+
+NOTE: After running the ./generateApps.sh if the apps directory does not contain the pom.xml file. Remove the apps
+directory and rerun the `./generateApps.sh` script.
+
+For more information please refer to this
+https://github.com/spring-cloud/spring-cloud-task-app-starters/blob/master/spring-cloud-task-app-starters-docs/src/main/asciidoc/overview.adoc[overview].
 
 

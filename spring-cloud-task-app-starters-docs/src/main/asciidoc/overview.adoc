@@ -2,7 +2,154 @@
 == Spring Cloud Task Starters
 
 This section goes into more detail about how you can work with Spring Cloud Task Starters as standalone applications or with Spring Cloud Data Flow.
+It assumes familiarity with general Spring Cloud Task concepts, which can be found in the Spring Cloud Task
+http://docs.spring.io/spring-cloud-task/current-SNAPSHOT/reference/htmlsingle/[reference documentation].
 
-=== Overview
+=== Introduction
 
-TBD
+Spring Cloud Task Application Starters provide you with predefined Spring Cloud Task applications that you can run independently or with Spring Cloud Data Flow.
+You can also use the starters as a basis for creating your own applications.  They include commonly used tasks that can
+run as is or be modified to your needs.
+
+=== Starters and pre-built applications
+
+As a user of Spring Cloud Task Application Starters you have access to two types of artifacts.
+
+_Starters_ are libraries that contain the complete configuration of a Spring Cloud Task application with a specific role
+(e.g. an _JDBC HDFS_ that migrates data from a JDBC Repository via sql query to a file on hdfs).
+Starters are not executable applications, and are intended to be included in other Spring Boot applications.
+
+_Prebuilt applications_ are Spring Boot applications that include the starters.
+Prebuilt applications are http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started-first-application-executable-jar[uberjars] and include minimal code required to execute standalone.
+
+[NOTE]
+Only starters are present in the source code of the project.
+Prebuilt applications are generated according to the Maven plugin configuration.
+
+==== Maven and Docker accesss
+
+Starters are available as Maven artifacts in the https://github.com/spring-projects/spring-framework/wiki/Spring-repository-FAQ[Spring repositories]. You can add them as dependencies to your application, as follows:
+
+[source,xml]
+```
+<dependency>
+  <group>org.springframework.cloud.task.app</group>
+  <artifactId>spring-cloud-starter-task-timestamp</artifactId>
+  <version>1.0.0.BUILD-SNAPSHOT</version>
+</dependency>
+```
+
+From this, you can infer the coordinates for other starters found in this guide.
+While the version may vary, the group will always remain `org.springframework.cloud.task.app` and the artifact id follows the naming convention `spring-cloud-starter-task-<functionality>`.
+
+Prebuilt applications are available as Maven artifacts too.
+It is not encouraged to use them directly as dependencies, as starters should be used instead.
+Following the typical Maven `<group>:<artifactId>:<version>` convention, they can be referenced for example as:
+
+```
+org.springframework.cloud.task.app:timestamp-task:1.0.0.BUILD-SNAPSHOT
+```
+
+Just as with the starters, you can infer the coordinates for other prebuilt applications found in the guide.
+The group will be always `org.springframework.cloud.task.app`.
+The version may vary.
+The artifact id follows the format `<functionality>-task`.
+
+*Docker*
+
+The Docker versions of the applications are available in Docker Hub, at https://hub.docker.com/r/springcloudtask/. 
+Naming and versioning follows the same general conventions as Maven, e.g.
+
+`docker pull springcloudtask/timestamp-task`
+will pull the latest Docker image of the timestamp task.
+
+==== Building the artifacts
+
+You can also build the project and generate the artifacts (including the prebuilt applications) on your own.
+This is useful if you want to deploy the artifacts locally, for example for adding a new starter.
+
+First, you need to generate the prebuilt applications.
+This is done by running the application generation Maven plugin.
+You can do so by simply invoking the corresponding script in the root of the project.
+
+```
+./generate.sh
+
+```
+
+Then build the applications:
+
+```
+cd apps
+
+mvn clean install
+```
+
+For the each of the prebuilt applications, the script will generate the following items:
+
+* `pom.xml` file with the required dependencies
+* a class that contains the `main` method of the application and imports the predefined configuration
+* generated integration test code that exercises the component.
+
+
+=== Creating custom artifacts
+
+In this section we will describe how to create your own application.
+
+==== Creating your own applications
+
+Spring Cloud Task Application Starters consist of regular Spring Cloud Task applications with some additional conventions that facilitate generating prebuilt applications.
+Sometimes, your solution may require additional applications that are not in the scope of Spring Cloud Task Application Starters, or require additional tweaks and enhancements.
+In this section we will show you how to create custom applications that can be part of your solution, along with Spring Cloud Task application starters.
+You have the following options:
+
+* create new Spring Cloud Task applications;
+* use the starters to create customized versions;
+
+
+===== Using generic Spring Cloud Task applications
+
+If you want to add your own custom applications to your solution, you can simply create a new Spring Cloud Task project and run it the same way as the applications provided by Spring Cloud Task Application Starters, independently or via Spring Cloud Data Flow.
+The process is described in the http://docs.spring.io/spring-cloud-task/current-SNAPSHOT/reference/htmlsingle/#getting-started#_getting_started[Getting Started Guide] of Spring Cloud Task.
+
+===== Using the starters to create custom components
+
+You can also reuse the starters provided by Spring Cloud Task Application Starters to create custom components, enriching the behavior of the application.
+For example, you can add a special behavior to your _jdbc hdfs_ task, to do some post processing following the migration of the data.
+As a reminder, this involves:
+
+* adding the starter to your project for example:
+[source,xml]
+----
+<dependencies>
+  <!- other dependencies -->
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.cloud.task.app</groupId>
+      <artifactId>spring-cloud-starter-task-timestamp</artifactId>
+    </dependency>
+</dependencies>
+----
+
+* adding the main class and importing the starter configuration for example:
+[source,java]
+----
+package org.springframework.cloud.task.app.timestamp;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
+
+
+@SpringBootApplication
+@Import(org.springframework.cloud.task.app.timestamp.TimestampTaskConfiguration.class)
+public class TimestampTaskApplication {
+
+        public static void main(String[] args) {
+                SpringApplication.run(TimestampTaskApplication.class, args);
+        }
+}
+----
+
+After doing so, you can simply add the additional configuration for the extra features of your application.
+
