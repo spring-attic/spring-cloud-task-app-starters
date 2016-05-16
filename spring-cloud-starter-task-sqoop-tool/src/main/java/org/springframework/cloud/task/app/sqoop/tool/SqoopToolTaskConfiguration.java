@@ -27,6 +27,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.cloud.task.sqoop.common.SqoopCommonRunnerUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -41,62 +42,71 @@ import java.util.List;
 @EnableTask
 @org.springframework.context.annotation.Configuration
 @EnableConfigurationProperties({ SqoopToolTaskProperties.class })
-public class SqoopToolTaskConfiguration implements CommandLineRunner {
+public class SqoopToolTaskConfiguration {
 
-	private static final Logger logger = LoggerFactory.getLogger(SqoopToolTaskConfiguration.class);
-
-	@Autowired
-	private SqoopToolTaskProperties props;
-
-	@Autowired
-	private Configuration hadoopConfiguration;
-
-	@Value("${spring.hadoop.config.mapreduce.framework.name:yarn}")
-	private String mapreduceFramework;
-
-	@Override
-	public void run(String... args) throws Exception {
-
-		List<String> finalArguments = createFinalArguments();
-
-		logger.info("Running Sqoop tool with arguments: " + finalArguments);
-
-		Configuration configuration = new Configuration(hadoopConfiguration);
-		logger.info("Setting mapreduce.framework.name to " + mapreduceFramework);
-		configuration.set("mapreduce.framework.name", mapreduceFramework);
-
-		final int ret = Sqoop.runTool(finalArguments.toArray(new String[finalArguments.size()]), configuration);
-
-		logger.info("Sqoop tool completed with return code: " + ret);
-
-		if (ret != 0) {
-			throw new RuntimeException("Sqoop job failed - return code " + ret);
-		}
+	@Bean
+	public CommandLineRunner commandLineRunner() {
+		return new SqoopToolRunner();
 	}
 
-	protected List<String> createFinalArguments() {
-		List<String> finalArguments = new ArrayList<String>();
-		String command = props.getCommand();
-		finalArguments.add(command);
-		SqoopCommonRunnerUtils.setConnectProperties(props, finalArguments);
-		if (command.toLowerCase().startsWith("import") || command.toLowerCase().startsWith("export")) {
-			finalArguments.add("--hadoop-mapred-home=" + Jars.getJarPathForClass(Jars.class)
-					.substring(0, Jars.getJarPathForClass(Jars.class).lastIndexOf("/")));
-		}
-		List<String> toolArguments = new ArrayList<String>();
-		if (StringUtils.hasText(props.getToolArgs())) {
-			String[] args = props.getToolArgs().split("\\s+");
-			for (String arg : args) {
-				if (arg.startsWith("--hive") || arg.startsWith("--hcatalog") ||
-						arg.startsWith("--hbase") || arg.startsWith("--accumulo")) {
-					throw new IllegalArgumentException(
-							arg + " is incompatible with tool execution from a distributed task.");
-				}
-				toolArguments.add(arg);
+	private class SqoopToolRunner implements CommandLineRunner {
+
+		private final Logger logger = LoggerFactory.getLogger(SqoopToolRunner.class);
+
+		@Autowired
+		private SqoopToolTaskProperties props;
+
+		@Autowired
+		private Configuration hadoopConfiguration;
+
+		@Value("${spring.hadoop.config.mapreduce.framework.name:yarn}")
+		private String mapreduceFramework;
+
+
+		@Override
+		public void run(String... args) throws Exception {
+
+			List<String> finalArguments = createFinalArguments();
+
+			logger.info("Running Sqoop tool with arguments: " + finalArguments);
+
+			Configuration configuration = new Configuration(hadoopConfiguration);
+			logger.info("Setting mapreduce.framework.name to " + mapreduceFramework);
+			configuration.set("mapreduce.framework.name", mapreduceFramework);
+
+			final int ret = Sqoop.runTool(finalArguments.toArray(new String[finalArguments.size()]), configuration);
+
+			logger.info("Sqoop tool completed with return code: " + ret);
+
+			if (ret != 0) {
+				throw new RuntimeException("Sqoop job failed - return code " + ret);
 			}
 		}
-		finalArguments.addAll(toolArguments);
-		return finalArguments;
+
+		protected List<String> createFinalArguments() {
+			List<String> finalArguments = new ArrayList<String>();
+			String command = props.getCommand();
+			finalArguments.add(command);
+			SqoopCommonRunnerUtils.setConnectProperties(props, finalArguments);
+			if (command.toLowerCase().startsWith("import") || command.toLowerCase().startsWith("export")) {
+				finalArguments.add("--hadoop-mapred-home=" + Jars.getJarPathForClass(Jars.class)
+						.substring(0, Jars.getJarPathForClass(Jars.class).lastIndexOf("/")));
+			}
+			List<String> toolArguments = new ArrayList<String>();
+			if (StringUtils.hasText(props.getToolArgs())) {
+				String[] args = props.getToolArgs().split("\\s+");
+				for (String arg : args) {
+					if (arg.startsWith("--hive") || arg.startsWith("--hcatalog") ||
+							arg.startsWith("--hbase") || arg.startsWith("--accumulo")) {
+						throw new IllegalArgumentException(
+								arg + " is incompatible with tool execution from a distributed task.");
+					}
+					toolArguments.add(arg);
+				}
+			}
+			finalArguments.addAll(toolArguments);
+			return finalArguments;
+		}
 	}
 
 }

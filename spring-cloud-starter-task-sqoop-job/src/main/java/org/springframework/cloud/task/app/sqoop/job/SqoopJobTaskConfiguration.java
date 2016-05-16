@@ -27,6 +27,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.cloud.task.sqoop.common.SqoopCommonRunnerUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -40,85 +41,93 @@ import java.util.List;
 @EnableTask
 @org.springframework.context.annotation.Configuration
 @EnableConfigurationProperties({ SqoopJobTaskProperties.class })
-public class SqoopJobTaskConfiguration implements CommandLineRunner {
+public class SqoopJobTaskConfiguration {
 
-	private static final Logger logger = LoggerFactory.getLogger(SqoopJobTaskConfiguration.class);
-
-	private SqoopJobTaskProperties props;
-
-	@Autowired
-	private Configuration hadoopConfiguration;
-
-	@Value("${spring.hadoop.config.mapreduce.framework.name:yarn}")
-	private String mapreduceFramework;
-
-	@Override
-	public void run(String... args) throws Exception {
-
-		List<String> finalJobArguments = createFinalJobArguments();
-
-		logger.info("Running Sqoop job with arguments: " + finalJobArguments);
-
-		Configuration configuration = new Configuration(hadoopConfiguration);
-		logger.info("Setting mapreduce.framework.name to " + mapreduceFramework);
-		configuration.set("mapreduce.framework.name", mapreduceFramework);
-		configuration.set("sqoop.metastore.client.autoconnect.url", props.getMetastoreUrl());
-		if (StringUtils.hasText(props.getMetastoreUsername())) {
-			configuration.set("sqoop.metastore.client.autoconnect.username", props.getMetastoreUsername());
-		}
-		if (StringUtils.hasText(props.getMetastorePassword())) {
-			configuration.set("sqoop.metastore.client.autoconnect.password", props.getMetastorePassword());
-		}
-
-		final int ret = Sqoop.runTool(finalJobArguments.toArray(new String[finalJobArguments.size()]), configuration);
-
-		logger.info("Sqoop job completed with return code: " + ret);
-
-		if (ret != 0) {
-			throw new RuntimeException("Sqoop job failed - return code " + ret);
-		}
+	@Bean
+	public CommandLineRunner commandLineRunner() {
+		return new SqoopJobRunner();
 	}
 
-	public SqoopJobTaskProperties getProps() {
-		return props;
-	}
+	private class SqoopJobRunner implements CommandLineRunner {
 
-	@Autowired
-	public void setProps(SqoopJobTaskProperties props) {
-		this.props = props;
-	}
+		private final Logger logger = LoggerFactory.getLogger(SqoopJobRunner.class);
 
-	protected List<String> createFinalJobArguments() {
-		List<String> finalArguments = new ArrayList<String>();
-		finalArguments.add("job");
-		String action = props.getAction();
-		finalArguments.add("--" + action);
-		finalArguments.add(props.getJobName());
-		finalArguments.add("--");
-		String command = props.getCommand();
-		if (action.toLowerCase().startsWith("create")) {
-			finalArguments.add(command);
-		}
-		if (action.toLowerCase().startsWith("exec")) {
-			finalArguments.add("--hadoop-mapred-home");
-			finalArguments.add(Jars.getJarPathForClass(Jars.class)
-					.substring(0, Jars.getJarPathForClass(Jars.class).lastIndexOf("/")));
-		}
-		SqoopCommonRunnerUtils.setConnectProperties(props, finalArguments);
-		List<String> toolArguments = new ArrayList<String>();
-		if (StringUtils.hasText(props.getToolArgs())) {
-			String[] args = props.getToolArgs().split("\\s+");
-			for (String arg : args) {
-				if (arg.startsWith("--hive") || arg.startsWith("--hcatalog") ||
-						arg.startsWith("--hbase") || arg.startsWith("--accumulo")) {
-					throw new IllegalArgumentException(
-							arg + " is incompatible with job execution from a distributed task.");
-				}
-				toolArguments.add(arg);
+		private SqoopJobTaskProperties props;
+
+		@Autowired
+		private Configuration hadoopConfiguration;
+
+		@Value("${spring.hadoop.config.mapreduce.framework.name:yarn}")
+		private String mapreduceFramework;
+
+		@Override
+		public void run(String... args) throws Exception {
+
+			List<String> finalJobArguments = createFinalJobArguments();
+
+			logger.info("Running Sqoop job with arguments: " + finalJobArguments);
+
+			Configuration configuration = new Configuration(hadoopConfiguration);
+			logger.info("Setting mapreduce.framework.name to " + mapreduceFramework);
+			configuration.set("mapreduce.framework.name", mapreduceFramework);
+			configuration.set("sqoop.metastore.client.autoconnect.url", props.getMetastoreUrl());
+			if (StringUtils.hasText(props.getMetastoreUsername())) {
+				configuration.set("sqoop.metastore.client.autoconnect.username", props.getMetastoreUsername());
+			}
+			if (StringUtils.hasText(props.getMetastorePassword())) {
+				configuration.set("sqoop.metastore.client.autoconnect.password", props.getMetastorePassword());
+			}
+
+			final int ret = Sqoop.runTool(finalJobArguments.toArray(new String[finalJobArguments.size()]), configuration);
+
+			logger.info("Sqoop job completed with return code: " + ret);
+
+			if (ret != 0) {
+				throw new RuntimeException("Sqoop job failed - return code " + ret);
 			}
 		}
-		finalArguments.addAll(toolArguments);
-		return finalArguments;
+
+		public SqoopJobTaskProperties getProps() {
+			return props;
+		}
+
+		@Autowired
+		public void setProps(SqoopJobTaskProperties props) {
+			this.props = props;
+		}
+
+		protected List<String> createFinalJobArguments() {
+			List<String> finalArguments = new ArrayList<String>();
+			finalArguments.add("job");
+			String action = props.getAction();
+			finalArguments.add("--" + action);
+			finalArguments.add(props.getJobName());
+			finalArguments.add("--");
+			String command = props.getCommand();
+			if (action.toLowerCase().startsWith("create")) {
+				finalArguments.add(command);
+			}
+			if (action.toLowerCase().startsWith("exec")) {
+				finalArguments.add("--hadoop-mapred-home");
+				finalArguments.add(Jars.getJarPathForClass(Jars.class)
+						.substring(0, Jars.getJarPathForClass(Jars.class).lastIndexOf("/")));
+			}
+			SqoopCommonRunnerUtils.setConnectProperties(props, finalArguments);
+			List<String> toolArguments = new ArrayList<String>();
+			if (StringUtils.hasText(props.getToolArgs())) {
+				String[] args = props.getToolArgs().split("\\s+");
+				for (String arg : args) {
+					if (arg.startsWith("--hive") || arg.startsWith("--hcatalog") ||
+							arg.startsWith("--hbase") || arg.startsWith("--accumulo")) {
+						throw new IllegalArgumentException(
+								arg + " is incompatible with job execution from a distributed task.");
+					}
+					toolArguments.add(arg);
+				}
+			}
+			finalArguments.addAll(toolArguments);
+			return finalArguments;
+		}
 	}
 
 }

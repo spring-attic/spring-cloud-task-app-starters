@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 import scala.Predef$;
@@ -45,80 +46,86 @@ import java.util.Map;
 @EnableTask
 @Configuration
 @EnableConfigurationProperties({ SparkClusterTaskProperties.class })
-public class SparkClusterTaskConfiguration implements CommandLineRunner {
+public class SparkClusterTaskConfiguration {
 
-    private static final Logger logger = LoggerFactory.getLogger(SparkClusterTaskConfiguration.class);
-
-    @Autowired
-    private SparkClusterTaskProperties config;
-
-    @Override
-    public void run(String... args) throws Exception {
-
-        RestSubmissionClient rsc = new RestSubmissionClient(config.getRestUrl());
-
-        Map<String, String> sparkProps = new HashMap<>();
-        sparkProps.put("spark.app.name", config.getAppName());
-        sparkProps.put("spark.master", config.getMaster());
-        if (StringUtils.hasText(config.getExecutorMemory())) {
-            sparkProps.put("spark.executor.memory", config.getExecutorMemory());
-        }
-        if (StringUtils.hasText(config.getResourceArchives())) {
-            sparkProps.put("spark.jars", config.getAppJar().trim() + "," + config.getResourceArchives().trim());
-        }
-        else{
-            sparkProps.put("spark.jars", config.getAppJar());
-        }
-        if (StringUtils.hasText(config.getResourceFiles())) {
-            sparkProps.put("spark.files", config.getResourceFiles());
-        }
-        scala.collection.immutable.Map<String, String> envMap =
-                JavaConverters$.MODULE$.mapAsScalaMapConverter(new HashMap<String, String>()).asScala()
-                        .toMap(Predef$.MODULE$.<scala.Tuple2<String, String>>conforms());
-        scala.collection.immutable.Map<String, String> propsMap =
-                JavaConverters$.MODULE$.mapAsScalaMapConverter(sparkProps).asScala()
-                        .toMap(Predef$.MODULE$.<scala.Tuple2<String, String>>conforms());
-
-        CreateSubmissionRequest csr = rsc.constructSubmitRequest(
-                config.getAppJar(),
-                config.getAppClass(),
-                config.getAppArgs(),
-                propsMap,
-                envMap);
-
-        SubmitRestProtocolResponse resp = rsc.createSubmission(csr);
-
-        String submissionId = getJsonProperty(resp.toJson(), "submissionId");
-        logger.info("Submitted Spark App with submissionId: " + submissionId);
-
-        String appState;
-
-        while (true) {
-            Thread.sleep(config.getAppStatusPollInterval());
-            SubmitRestProtocolResponse stat = rsc.requestSubmissionStatus(submissionId, false);
-            appState = getJsonProperty(stat.toJson(), "driverState");
-            if (!(appState.equals(DriverState.SUBMITTED().toString()) ||
-                    appState.equals(DriverState.RUNNING().toString()) ||
-                    appState.equals(DriverState.RELAUNCHING().toString()) ||
-                    appState.equals(DriverState.UNKNOWN().toString()))) {
-                System.out.println("Spark App completed with status: " + appState);
-                appState = appState;
-                break;
-            }
-        }
-        if (!appState.equals(DriverState.FINISHED().toString())) {
-            throw new RuntimeException("Spark App submission " + submissionId + " failed with status " + appState);
-        }
+    @Bean
+    public CommandLineRunner commandLineRunner() {
+        return new SparkAppClusterRunner();
     }
 
-    private String getJsonProperty(String json, String prop) {
-        try {
-            HashMap<String, Object> props =
-                    new ObjectMapper().readValue(json, HashMap.class);
-            return props.get(prop).toString();
+    private class SparkAppClusterRunner implements CommandLineRunner {
+
+        private final Logger logger = LoggerFactory.getLogger(SparkAppClusterRunner.class);
+
+        @Autowired
+        private SparkClusterTaskProperties config;
+
+        @Override
+        public void run(String... args) throws Exception {
+
+            RestSubmissionClient rsc = new RestSubmissionClient(config.getRestUrl());
+
+            Map<String, String> sparkProps = new HashMap<>();
+            sparkProps.put("spark.app.name", config.getAppName());
+            sparkProps.put("spark.master", config.getMaster());
+            if (StringUtils.hasText(config.getExecutorMemory())) {
+                sparkProps.put("spark.executor.memory", config.getExecutorMemory());
+            }
+            if (StringUtils.hasText(config.getResourceArchives())) {
+                sparkProps.put("spark.jars", config.getAppJar().trim() + "," + config.getResourceArchives().trim());
+            } else {
+                sparkProps.put("spark.jars", config.getAppJar());
+            }
+            if (StringUtils.hasText(config.getResourceFiles())) {
+                sparkProps.put("spark.files", config.getResourceFiles());
+            }
+            scala.collection.immutable.Map<String, String> envMap =
+                    JavaConverters$.MODULE$.mapAsScalaMapConverter(new HashMap<String, String>()).asScala()
+                            .toMap(Predef$.MODULE$.<scala.Tuple2<String, String>>conforms());
+            scala.collection.immutable.Map<String, String> propsMap =
+                    JavaConverters$.MODULE$.mapAsScalaMapConverter(sparkProps).asScala()
+                            .toMap(Predef$.MODULE$.<scala.Tuple2<String, String>>conforms());
+
+            CreateSubmissionRequest csr = rsc.constructSubmitRequest(
+                    config.getAppJar(),
+                    config.getAppClass(),
+                    config.getAppArgs(),
+                    propsMap,
+                    envMap);
+
+            SubmitRestProtocolResponse resp = rsc.createSubmission(csr);
+
+            String submissionId = getJsonProperty(resp.toJson(), "submissionId");
+            logger.info("Submitted Spark App with submissionId: " + submissionId);
+
+            String appState;
+
+            while (true) {
+                Thread.sleep(config.getAppStatusPollInterval());
+                SubmitRestProtocolResponse stat = rsc.requestSubmissionStatus(submissionId, false);
+                appState = getJsonProperty(stat.toJson(), "driverState");
+                if (!(appState.equals(DriverState.SUBMITTED().toString()) ||
+                        appState.equals(DriverState.RUNNING().toString()) ||
+                        appState.equals(DriverState.RELAUNCHING().toString()) ||
+                        appState.equals(DriverState.UNKNOWN().toString()))) {
+                    System.out.println("Spark App completed with status: " + appState);
+                    appState = appState;
+                    break;
+                }
+            }
+            if (!appState.equals(DriverState.FINISHED().toString())) {
+                throw new RuntimeException("Spark App submission " + submissionId + " failed with status " + appState);
+            }
         }
-        catch (IOException ioe) {
-            return null;
+
+        private String getJsonProperty(String json, String prop) {
+            try {
+                HashMap<String, Object> props =
+                        new ObjectMapper().readValue(json, HashMap.class);
+                return props.get(prop).toString();
+            } catch (IOException ioe) {
+                return null;
+            }
         }
     }
 }

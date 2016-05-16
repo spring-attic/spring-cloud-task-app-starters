@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.text.DateFormat;
@@ -33,17 +34,27 @@ import java.util.Date;
 @EnableTask
 @Configuration
 @EnableConfigurationProperties({ TimestampTaskProperties.class })
-public class TimestampTaskConfiguration implements CommandLineRunner {
+public class TimestampTaskConfiguration {
 
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(TimestampTaskConfiguration.class);
+    @Bean
+    public TimestampTask timeStampTask() {
+        return new TimestampTask();
+    }
 
-    @Autowired
-    private TimestampTaskProperties config;
+    /**
+     * A commandline runner that prints a timestamp.
+     */
+    public class TimestampTask implements CommandLineRunner {
+        private final org.slf4j.Logger logger = LoggerFactory.getLogger(TimestampTask.class);
 
-    @Override
-    public void run(String... strings) throws Exception {
-        DateFormat dateFormat = new SimpleDateFormat(config.getFormat());
-        logger.info(dateFormat.format(new Date()));
+        @Autowired
+        private TimestampTaskProperties config;
+
+        @Override
+        public void run(String... strings) throws Exception {
+            DateFormat dateFormat = new SimpleDateFormat(config.getFormat());
+            logger.info(dateFormat.format(new Date()));
+        }
     }
 
 }

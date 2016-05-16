@@ -16,20 +16,20 @@
 
 package org.springframework.cloud.task.app.spark.client;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.apache.spark.deploy.SparkSubmit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * {@link CommandLineRunner} implementation that will run a Spark App in client mode using
@@ -40,48 +40,55 @@ import org.springframework.util.StringUtils;
 @EnableTask
 @Configuration
 @EnableConfigurationProperties({ SparkAppCommonTaskProperties.class })
-public class SparkClientTaskConfiguration implements CommandLineRunner {
+public class SparkClientTaskConfiguration {
 
-    private static final Logger logger = LoggerFactory.getLogger(SparkClientTaskConfiguration.class);
+    @Bean
+    public CommandLineRunner commandLineRunner() {
+        return new SparkAppClientRunner();
+    }
 
-    @Autowired
-    private SparkAppCommonTaskProperties config;
+    private class SparkAppClientRunner implements CommandLineRunner {
 
-    @Override
-    public void run(String... args) throws Exception {
-        ArrayList<String> argList = new ArrayList<>();
-        if (StringUtils.hasText(config.getAppName())) {
-            argList.add("--name");
-            argList.add(config.getAppName());
+        private final Logger logger = LoggerFactory.getLogger(SparkAppClientRunner.class);
+
+        @Autowired
+        private SparkAppCommonTaskProperties config;
+
+
+        @Override
+        public void run(String... args) throws Exception {
+            ArrayList<String> argList = new ArrayList<>();
+            if (StringUtils.hasText(config.getAppName())) {
+                argList.add("--name");
+                argList.add(config.getAppName());
+            }
+            argList.add("--class");
+            argList.add(config.getAppClass());
+            argList.add("--master");
+            argList.add(config.getMaster());
+            argList.add("--deploy-mode");
+            argList.add("client");
+
+            argList.add(config.getAppJar());
+
+            if (StringUtils.hasText(config.getResourceFiles())) {
+                argList.add("--files");
+                argList.add(config.getResourceFiles());
+            }
+
+            if (StringUtils.hasText(config.getResourceArchives())) {
+                argList.add("--jars");
+                argList.add(config.getResourceArchives());
+            }
+
+            argList.addAll(Arrays.asList(config.getAppArgs()));
+
+            try {
+                SparkSubmit.main(argList.toArray(new String[argList.size()]));
+            } catch (Throwable t) {
+                logger.error("Spark Application failed: " + t.getMessage(), t);
+                throw new RuntimeException("Spark Application failed", t);
+            }
         }
-        argList.add("--class");
-        argList.add(config.getAppClass());
-        argList.add("--master");
-        argList.add(config.getMaster());
-        argList.add("--deploy-mode");
-        argList.add("client");
-
-        argList.add(config.getAppJar());
-
-        if (StringUtils.hasText(config.getResourceFiles())) {
-            argList.add("--files");
-            argList.add(config.getResourceFiles());
-        }
-
-        if (StringUtils.hasText(config.getResourceArchives())) {
-            argList.add("--jars");
-            argList.add(config.getResourceArchives());
-        }
-
-        argList.addAll(Arrays.asList(config.getAppArgs()));
-
-        try {
-            SparkSubmit.main(argList.toArray(new String[argList.size()]));
-        }
-        catch (Throwable t) {
-            logger.error("Spark Application failed: " + t.getMessage(), t);
-            throw new RuntimeException("Spark Application failed", t);
-        }
-
     }
 }

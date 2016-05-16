@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -41,58 +42,65 @@ import java.util.List;
 @EnableTask
 @org.springframework.context.annotation.Configuration
 @EnableConfigurationProperties({ SparkYarnTaskProperties.class })
-public class SparkYarnTaskConfiguration implements CommandLineRunner {
+public class SparkYarnTaskConfiguration {
 
-    private static final Logger logger = LoggerFactory.getLogger(SparkYarnTaskConfiguration.class);
+    @Bean
+    public CommandLineRunner commandLineRunner() {
+        return new SparkAppYarnRunner();
+    }
 
-    @Autowired
-    private Configuration hadoopConfiguration;
+    private class SparkAppYarnRunner implements CommandLineRunner {
 
-    @Autowired
-    private SparkYarnTaskProperties config;
+        private final Logger logger = LoggerFactory.getLogger(SparkAppYarnRunner.class);
 
-    @Override
-    public void run(String... args) throws Exception {
-        SparkConf sparkConf = new SparkConf();
-        sparkConf.set("spark.yarn.jar", config.getSparkAssemblyJar());
+        @Autowired
+        private Configuration hadoopConfiguration;
 
-        List<String> submitArgs = new ArrayList<String>();
-        if (StringUtils.hasText(config.getAppName())) {
-            submitArgs.add("--name");
-            submitArgs.add(config.getAppName());
-        }
-        submitArgs.add("--jar");
-        submitArgs.add(config.getAppJar());
-        submitArgs.add("--class");
-        submitArgs.add(config.getAppClass());
-        if (StringUtils.hasText(config.getResourceFiles())) {
-            submitArgs.add("--files");
-            submitArgs.add(config.getResourceFiles());
-        }
-        if (StringUtils.hasText(config.getResourceArchives())) {
-            submitArgs.add("--archives");
-            submitArgs.add(config.getResourceArchives());
-        }
-        submitArgs.add("--executor-memory");
-        submitArgs.add(config.getExecutorMemory());
-        submitArgs.add("--num-executors");
-        submitArgs.add("" + config.getNumExecutors());
-        for (String arg : config.getAppArgs()) {
-            submitArgs.add("--arg");
-            submitArgs.add(arg);
-        }
-        logger.info("Submit App with args: " + Arrays.asList(submitArgs));
-        ClientArguments clientArguments =
-                new ClientArguments(submitArgs.toArray(new String[submitArgs.size()]), sparkConf);
-        clientArguments.isClusterMode();
-        Client client = new Client(clientArguments, hadoopConfiguration, sparkConf);
-        System.setProperty("SPARK_YARN_MODE", "true");
-        try {
-            client.run();
-        }
-        catch (Throwable t) {
-            logger.error("Spark Application failed: " + t.getMessage(), t);
-            throw new RuntimeException("Spark Application failed", t);
+        @Autowired
+        private SparkYarnTaskProperties config;
+
+        @Override
+        public void run(String... args) throws Exception {
+            SparkConf sparkConf = new SparkConf();
+            sparkConf.set("spark.yarn.jar", config.getSparkAssemblyJar());
+
+            List<String> submitArgs = new ArrayList<String>();
+            if (StringUtils.hasText(config.getAppName())) {
+                submitArgs.add("--name");
+                submitArgs.add(config.getAppName());
+            }
+            submitArgs.add("--jar");
+            submitArgs.add(config.getAppJar());
+            submitArgs.add("--class");
+            submitArgs.add(config.getAppClass());
+            if (StringUtils.hasText(config.getResourceFiles())) {
+                submitArgs.add("--files");
+                submitArgs.add(config.getResourceFiles());
+            }
+            if (StringUtils.hasText(config.getResourceArchives())) {
+                submitArgs.add("--archives");
+                submitArgs.add(config.getResourceArchives());
+            }
+            submitArgs.add("--executor-memory");
+            submitArgs.add(config.getExecutorMemory());
+            submitArgs.add("--num-executors");
+            submitArgs.add("" + config.getNumExecutors());
+            for (String arg : config.getAppArgs()) {
+                submitArgs.add("--arg");
+                submitArgs.add(arg);
+            }
+            logger.info("Submit App with args: " + Arrays.asList(submitArgs));
+            ClientArguments clientArguments =
+                    new ClientArguments(submitArgs.toArray(new String[submitArgs.size()]), sparkConf);
+            clientArguments.isClusterMode();
+            Client client = new Client(clientArguments, hadoopConfiguration, sparkConf);
+            System.setProperty("SPARK_YARN_MODE", "true");
+            try {
+                client.run();
+            } catch (Throwable t) {
+                logger.error("Spark Application failed: " + t.getMessage(), t);
+                throw new RuntimeException("Spark Application failed", t);
+            }
         }
     }
 
