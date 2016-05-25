@@ -16,9 +16,13 @@
 
 package org.springframework.cloud.task.app.spark.client;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.spark.deploy.SparkSubmit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,9 +31,6 @@ import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperti
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * {@link CommandLineRunner} implementation that will run a Spark App in client mode using
@@ -49,7 +50,7 @@ public class SparkClientTaskConfiguration {
 
     private class SparkAppClientRunner implements CommandLineRunner {
 
-        private final Logger logger = LoggerFactory.getLogger(SparkAppClientRunner.class);
+        private final Log logger = LogFactory.getLog(SparkAppClientRunner.class);
 
         @Autowired
         private SparkAppCommonTaskProperties config;
