@@ -16,13 +16,17 @@
 
 package org.springframework.cloud.task.app.spark.cluster;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.spark.deploy.master.DriverState;
 import org.apache.spark.deploy.rest.CreateSubmissionRequest;
 import org.apache.spark.deploy.rest.RestSubmissionClient;
 import org.apache.spark.deploy.rest.SubmitRestProtocolResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -30,12 +34,10 @@ import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 import scala.Predef$;
 import scala.collection.JavaConverters$;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * {@link CommandLineRunner} implementation that will run a Spark App in cluster mode using
@@ -55,7 +57,7 @@ public class SparkClusterTaskConfiguration {
 
     private class SparkAppClusterRunner implements CommandLineRunner {
 
-        private final Logger logger = LoggerFactory.getLogger(SparkAppClusterRunner.class);
+        private final Log logger = LogFactory.getLog(SparkAppClusterRunner.class);
 
         @Autowired
         private SparkClusterTaskProperties config;

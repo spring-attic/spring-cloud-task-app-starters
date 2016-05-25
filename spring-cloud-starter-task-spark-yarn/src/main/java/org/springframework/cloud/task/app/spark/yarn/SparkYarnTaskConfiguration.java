@@ -16,22 +16,23 @@
 
 package org.springframework.cloud.task.app.spark.yarn;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.spark.SparkConf;
 import org.apache.spark.deploy.yarn.Client;
 import org.apache.spark.deploy.yarn.ClientArguments;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * {@link CommandLineRunner} implementation that will run a Spark App in YARN mode using
@@ -51,7 +52,7 @@ public class SparkYarnTaskConfiguration {
 
     private class SparkAppYarnRunner implements CommandLineRunner {
 
-        private final Logger logger = LoggerFactory.getLogger(SparkAppYarnRunner.class);
+        private final Log logger = LogFactory.getLog(SparkAppYarnRunner.class);
 
         @Autowired
         private Configuration hadoopConfiguration;

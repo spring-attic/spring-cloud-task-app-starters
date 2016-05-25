@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hsqldb.Server;
 import org.hsqldb.persist.HsqlProperties;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +35,7 @@ import org.springframework.util.SocketUtils;
 @Configuration
 public class SqoopToolDatabaseConfiguration {
 
-	private static final Logger logger = LoggerFactory.getLogger(SqoopToolDatabaseConfiguration.class);
+	private static final Log logger = LogFactory.getLog(SqoopToolDatabaseConfiguration.class);
 
 	@Bean(destroyMethod = "stop")
 	public Server databaseServer() throws SQLException, IOException {

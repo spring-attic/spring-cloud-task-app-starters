@@ -16,11 +16,15 @@
 
 package org.springframework.cloud.task.app.sqoop.job;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.sqoop.Sqoop;
 import org.apache.sqoop.util.Jars;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -29,9 +33,6 @@ import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.cloud.task.sqoop.common.SqoopCommonRunnerUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * {@link CommandLineRunner} implementation that will create or run a Sqoop Job.
@@ -50,7 +51,7 @@ public class SqoopJobTaskConfiguration {
 
 	private class SqoopJobRunner implements CommandLineRunner {
 
-		private final Logger logger = LoggerFactory.getLogger(SqoopJobRunner.class);
+		private final Log logger = LogFactory.getLog(SqoopJobRunner.class);
 
 		private SqoopJobTaskProperties props;
 
