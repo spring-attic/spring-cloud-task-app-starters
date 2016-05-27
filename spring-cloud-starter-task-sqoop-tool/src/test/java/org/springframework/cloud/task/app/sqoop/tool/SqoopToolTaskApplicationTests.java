@@ -19,7 +19,6 @@ package org.springframework.cloud.task.app.sqoop.tool;
 import org.apache.commons.io.FileUtils;
 import org.hsqldb.Server;
 import org.junit.AfterClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +81,6 @@ public abstract class SqoopToolTaskApplicationTests {
 			"username=sa",
 			"command=import",
 			"tool-args=--table FOO --target-dir ${sqoop.test.dir} -m 1 --outdir target/java"})
-	@Ignore
 	public static class SqoopToolImportTests extends SqoopToolTaskApplicationTests {
 
 		@Test
@@ -109,7 +107,6 @@ public abstract class SqoopToolTaskApplicationTests {
 			"username=sa",
 			"command=export",
 			"tool-args=--table BAR --export-dir data --outdir target/java"})
-	@Ignore
 	public static class SqoopToolExportTests extends SqoopToolTaskApplicationTests {
 
 		@Autowired
