@@ -69,9 +69,10 @@
                                 </dependency>
                             </forceDependencies>
                         </spark-cluster-task>
-                        <spark-yarn-task />
-                        <sqoop-job-task />
-                        <sqoop-tool-task />
+                        <spark-yarn-task/>
+                        <sqoop-job-task/>
+                        <sqoop-tool-task/>
+                        <jdbc-hdfs-local-task/>
                     </generatedApps>
                 </configuration>
             </plugin>

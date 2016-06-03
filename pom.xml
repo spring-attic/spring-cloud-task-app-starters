@@ -27,6 +27,8 @@
 
   <modules>
     <module>spring-cloud-starter-task-timestamp</module>
+    <module>spring-cloud-starter-task-jdbchdfs-local</module>
+    <module>spring-cloud-task-jdbchdfs-common</module>
     <module>spring-cloud-starter-task-spark-client</module>
     <module>spring-cloud-starter-task-spark-cluster</module>
     <module>spring-cloud-starter-task-spark-yarn</module>
