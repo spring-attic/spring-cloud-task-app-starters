@@ -22,11 +22,13 @@
   <properties>
     <java.version>1.7</java.version>
     <scs-app-maven-plugin.version>1.0.2.RELEASE</scs-app-maven-plugin.version>
-    <spring.cloud.task.core.version>1.0.2.RELEASE</spring.cloud.task.core.version>
+    <spring.cloud.task.core.version>1.0.3.RELEASE</spring.cloud.task.core.version>
   </properties>
 
   <modules>
     <module>spring-cloud-starter-task-timestamp</module>
+    <module>spring-cloud-starter-task-jdbchdfs-local</module>
+    <module>spring-cloud-task-jdbchdfs-common</module>
     <module>spring-cloud-starter-task-spark-client</module>
     <module>spring-cloud-starter-task-spark-cluster</module>
     <module>spring-cloud-starter-task-spark-yarn</module>

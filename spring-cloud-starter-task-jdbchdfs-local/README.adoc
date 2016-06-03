@@ -1,0 +1,50 @@
+//tag::ref-doc[]
+= JdbcHdfs Task
+
+This task exports data from a Jdbc table(s) into CSV files on an HDFS using a single batch job.  When launching the task, you must
+either supply the select statement by setting the sql parameter, or you can supply both tableName and columns options
+(which will be used to build the SQL statement).
+
+== Options
+
+// see syntax (soon to be automatically generated) in spring-cloud-task starters
+The **$$jdbchdfs$$** $$task$$ has the following options:
+
+//tag::configuration-properties[]
+$$jdbchdfs.datasource.password$$:: $$The password of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$value of spring.datasource.password$$`)*
+$$jdbchdfs.datasource.driverClassName$$:: $$The driver of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$value of spring.datasource.driverClassName$$`)*
+$$jdbchdfs.datasource.username$$:: $$The username of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$value of spring.datasource.username$$`)*
+$$jdbchdfs.datasource.url$$:: $$The url of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$value of spring.datasource.url$$`)*
+$$spring.datasource.password$$:: $$The password of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
+$$spring.datasource.url$$:: $$The url of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
+$$spring.datasource.username$$:: $$The username of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
+$$spring.datasource.driverClassName$$:: $$The driver of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.user-key-tab$$:: $$The user key tab to be used.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.column-names$$:: $$The name of the columns to be queried.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.fs-uri$$:: $$The URI to the hadoop file system.$$ *($$String$$, default: `$$hdfs://localhost:8020$$`)*
+$$jdbchdfs.properties-location$$:: $$The properties location to be used.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.name-node-principal$$:: $$The name node principal to be used.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.security-method$$:: $$The security method to be used.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.file-name$$:: $$The name of the file to be written to the file system.$$ *($$String$$, default: `$$jdbchdfs$$`)*
+$$jdbchdfs.commit-interval$$:: $$The commit interval for the application.$$ *($$Integer$$, default: `$$1000$$`)*
+$$jdbchdfs.check-column$$:: $$The name of the column used to determine if the data should be read.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.register-url-handler $$:: $$The register url handler to be used.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.directory$$:: $$The directory the files are to be written.$$ *($$String$$, default: `$$/data$$`)*
+$$jdbchdfs.partitions$$:: $$The number of partitions to be created.$$ *($$SInteger$$, default: `$$4$$`)*
+$$jdbchdfs.rm-manager-principal $$:: $$The rm manager principal to be used.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.file-extension $$:: $$The extension that will be applied to the files.$$ *($$String$$, default: `$$csv$$`)*
+$$jdbchdfs.partition-column$$:: $$The name of the column used to partition the data.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.user-principal $$:: $$The user principal to be used.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.restartable $$:: $$Is the batch job restartable.$$ *($$Boolean$$, default: `$$false$$`)*
+$$jdbchdfs.rollover $$:: $$The number of bytes to be written before file rollsover.$$ *($$Long$$, default: `$$1000000000$$`)*
+$$jdbchdfs.table-name$$:: $$The name of the table to be queried.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.delimiter$$:: $$The delimiter used to split the columns of data in the output file.$$ *($$String$$, default: `$$,$$`)*
+$$jdbchdfs.max-workers $$:: $$Maximum number of concurrent workers.$$ *($$Integer$$, default: `$$2$$`)*
+$$jdbchdfs.sql$$:: $$Sql to be used to retrieve the data.$$ *($$String$$, default: `$$<none>$$`)*
+
+//end::configuration-properties[]
+
+NOTE: If the jdbchdfs.datasource properties are not set the application will use the spring.datasource properties as
+the settings for the datasource that retrieves table data.
+
+//end::ref-doc[]

@@ -19,6 +19,10 @@ There is a convenient script provided to generate Spring Boot Applications for a
 generated applications are very basic in functionality and thus you may want to create similar apps
 using the starters as a basis.
 
+NOTE: HdfsTextItemWriter implementation does not manage the state of the file like the FlatFileItemWriter does and therefore
+restarts may not work correctly (partial writes of a previous transaction are possible leaving the file in an
+inconsistent state).
+
 *Generating Out of the Box Tasks*
 
 ----
@@ -36,5 +40,9 @@ directory and rerun the `./generateApps.sh` script.
 
 For more information please refer to this
 https://github.com/spring-cloud/spring-cloud-task-app-starters/blob/master/spring-cloud-task-app-starters-docs/src/main/asciidoc/overview.adoc[overview].
+
+=== Integration Tests
+After executing the `mvn clean install` int the apps directory, execute the following from the main project directory:
+`mvn clean install -P integration-tests`
 
 
