@@ -36,6 +36,7 @@
     <module>spring-cloud-task-spark-common</module>
     <module>spring-cloud-task-sqoop-common</module>
     <module>spring-cloud-task-app-dependencies</module>
+    <module>spring-cloud-task-app-descriptor</module>
     <module>spring-cloud-task-app-generator</module>
   </modules>
 
