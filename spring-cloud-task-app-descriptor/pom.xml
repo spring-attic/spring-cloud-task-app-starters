@@ -16,10 +16,42 @@
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 				<includes>
-					<include>META-INF/apps.properties</include>
+					<include>META-INF/task-apps-maven.properties</include>
+					<include>META-INF/task-apps-docker.properties</include>
 				</includes>
 			</resource>
 		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>attach-artifacts</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>target/classes/META-INF/task-apps-maven.properties</file>
+									<type>task-apps-maven</type>
+									<!--<classifier>task-apps-maven.properties</classifier>-->
+								</artifact>
+								<artifact>
+									<file>target/classes/META-INF/task-apps-docker.properties</file>
+									<type>task-apps-docker</type>
+								</artifact>
+							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
 	</build>
 
 </project>
