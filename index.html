@@ -1,0 +1,104 @@
+---
+# The name of your project
+title: Spring Cloud Task Application Starters
+
+badges:
+
+  # Specify your project's twitter handle, if any. Delete if none.
+  twitter: SpringCloudOSS
+
+  # Customize your project's badges. Delete any entries that do not apply.
+  custom:
+    - name: Source (GitHub)
+      url:  https://github.com/spring-cloud/spring-cloud-task-app-starters
+      icon: github
+
+    - name: Issues (Waffle)
+      url:  https://waffle.io/spring-cloud/spring-cloud-task-app-starters
+      icon: tracking
+
+    - name: CI (Bamboo)
+      url:  https://build.spring.io/browse/SCT-SCTAS
+      icon: ci
+    
+    - name: StackOverflow
+      url:  http://stackoverflow.com/questions/tagged/spring-cloud-task
+      icon: stackoverflow
+
+---
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Specify the parent of this project (or delete if none) to influence the rendering of the breadcrumb -->
+{% capture parent_link %}
+[Spring Cloud]({{ site.projects_site_url }}/spring-cloud)
+{% endcapture %}
+
+
+{% capture billboard_description %}
+
+Spring Cloud Task Application Starters are [Spring Boot](http://projects.spring.io/spring-boot/) 
+applications that may be any process including [Spring Batch](http://projects.spring.io/spring-batch/) 
+jobs that does not run forever, and they end/stop at some point. Spring Cloud Task Applications can 
+be used with [Spring Cloud Data Flow](http://cloud.spring.io/spring-cloud-dataflow/) to create, deploy, 
+and orchestrate short-lived data microservices.
+
+{% endcapture %}
+
+{% capture main_content %}
+
+Spring Cloud Task Application Starters are standalone executable applications that can be used for 
+on-demand use-cases such as database migration, machine learning, and scheduled operations. 
+These applications can run independently on variety of runtime platforms including: Cloud Foundry, 
+Apache Yarn, Apache Mesos, Kubernetes, Docker, or even on your laptop.
+
+## Features
+
+* Run standalone as Spring Boot applications
+* Orchestrate as data microservices based task/batch pipelines in Spring Cloud Data Flow
+* Consume data microservice applications as maven or docker artifacts
+* Override configuration parameters via command-line, environment variables, or YAML file
+* Provide infrastructure to test the applications in isolation
+
+
+## Available Applications
+
+| __Task__ |
+| ------- |
+| timestamp |
+| spark-client |
+| spark-cluster |
+| spark-yarn |
+
+<span id="quick-start"></span>
+
+## Quick Start
+
+Step 1 - Clone [Spring Cloud Task Application Starters](https://github.com/spring-cloud/spring-cloud-task-app-starters.git) repository
+
+Step 2 - [Build and Install Apps](https://github.com/spring-cloud/spring-cloud-task-app-starters#building)
+
+Step 4 - Run *timestamp* Task Application
+```
+java -jar timestamp-task/target/timestamp-task-1.0.0.BUILD-SNAPSHOT.jar
+```
+
+Step 5 - Verify *timestamp* Log in Console 
+
+Step 6 - Verify *timestamp* App shutsdown
+
+{% endcapture %}
+
+{% capture related_resources %}
+
+### Related Projects
+
+* [Spring Cloud Task](https://github.com/spring-cloud/spring-cloud-task/)
+* [Spring Cloud Data Flow](http://cloud.spring.io/spring-cloud-dataflow/)
+* [Spring Cloud Stream](http://cloud.spring.io/spring-cloud-stream/)
+
+{% endcapture %}
+
+
+{% include project_page.html %}
+</html>
