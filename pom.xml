@@ -24,6 +24,7 @@
     <java.version>1.7</java.version>
     <scs-app-maven-plugin.version>1.0.0.BUILD-SNAPSHOT</scs-app-maven-plugin.version>
     <spring.cloud.task.core.version>1.0.0.M2</spring.cloud.task.core.version>
+    <docker.tag>latest</docker.tag>
   </properties>
 
   <modules>
