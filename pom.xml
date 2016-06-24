@@ -38,6 +38,7 @@
     <module>spring-cloud-task-app-dependencies</module>
     <module>spring-cloud-task-app-descriptor</module>
     <module>spring-cloud-task-app-generator</module>
+    <module>spring-cloud-task-app-starters-docs</module>
   </modules>
 
   <dependencyManagement>
