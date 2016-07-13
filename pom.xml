@@ -23,7 +23,7 @@
   <properties>
     <java.version>1.7</java.version>
     <scs-app-maven-plugin.version>1.0.0.RELEASE</scs-app-maven-plugin.version>
-    <spring.cloud.task.core.version>1.0.0.RELEASE</spring.cloud.task.core.version>
+    <spring.cloud.task.core.version>1.0.1.RELEASE</spring.cloud.task.core.version>
   </properties>
 
   <modules>
