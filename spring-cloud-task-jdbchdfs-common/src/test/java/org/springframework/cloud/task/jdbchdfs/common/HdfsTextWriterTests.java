@@ -69,6 +69,10 @@ public class HdfsTextWriterTests {
 		if (writer != null) {
 			writer.close();
 		}
+		File file = new File(tmpDir);
+		if (file.exists()) {
+			FileSystemUtils.deleteRecursively(file);
+		}
 	}
 
 	@Test

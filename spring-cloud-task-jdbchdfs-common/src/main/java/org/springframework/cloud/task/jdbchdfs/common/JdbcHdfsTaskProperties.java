@@ -19,6 +19,7 @@ package org.springframework.cloud.task.jdbchdfs.common;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
+ * Establishes the Configuration Properties for the JdbcHdfs task.
  * @author Glenn Renfro
  */
 @ConfigurationProperties
@@ -81,6 +82,8 @@ public class JdbcHdfsTaskProperties {
 	private String checkColumn;
 
 	private boolean restartable;
+
+	private int maxWorkers = 2;
 
 	public String getFsUri() {
 		return fsUri;
@@ -248,5 +251,13 @@ public class JdbcHdfsTaskProperties {
 
 	public void setRestartable(boolean restartable) {
 		this.restartable = restartable;
+	}
+
+	public int getMaxWorkers() {
+		return maxWorkers;
+	}
+
+	public void setMaxWorkers(int maxWorkers) {
+		this.maxWorkers = maxWorkers;
 	}
 }

@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.UUID;
 import javax.sql.DataSource;
 
 import org.hsqldb.Server;
@@ -42,6 +43,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.hadoop.fs.FsShell;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
@@ -92,9 +94,24 @@ public abstract class JdbcHdfsTaskIntegrationTests {
 				fsShell.rmr(testDir);
 			}
 
+			JdbcTemplate template = new JdbcTemplate(this.dataSource);
+			template.execute("drop table TASK_TASK_BATCH");
+			template.execute("drop table TASK_SEQ");
+			template.execute("drop table TASK_EXECUTION_PARAMS");
+			template.execute("drop table TASK_EXECUTION");
+			template.execute("drop table BATCH_STEP_EXECUTION_SEQ");
+			template.execute("drop table BATCH_STEP_EXECUTION_CONTEXT");
+			template.execute("drop table BATCH_STEP_EXECUTION");
+			template.execute("drop table BATCH_JOB_SEQ");
+			template.execute("drop table BATCH_JOB_EXECUTION_SEQ");
+			template.execute("drop table BATCH_JOB_EXECUTION_PARAMS");
+			template.execute("drop table BATCH_JOB_EXECUTION_CONTEXT");
+			template.execute("drop table BATCH_JOB_EXECUTION");
+			template.execute("drop table BATCH_JOB_INSTANCE");
 			if (applicationContext != null && applicationContext.isActive()) {
 				applicationContext.close();
 			}
+
 		}
 
 		@Test

@@ -62,6 +62,15 @@ public class JdbcHdfsConfiguration {
 
 	public static final String[] PROMOTION_LISTENER_KEYS = {"batch.incremental.maxId"};
 
+	public static final String FS_DEFAULT_FS = "fs.defaultFS";
+	public static final String RM_MANAGER_PRINCIPLE = "rm-manager-principal";
+	public static final String NAMENODE_PRINCIPLE = "namenode-principal";
+	public static final String USER_PRINCIPLE = "user-principal";
+	public static final String USER_KEYTAB = "user-keytab";
+	public static final String SECURITY_METHOD = "security-method";
+	public static final String PROPERTIES_LOCATION = "properties-location";
+	public static final String REGISTER_URL_HANDLER = "register-url-handler";
+
 	@Autowired
 	private Configuration hadoopConfiguration;
 
@@ -92,7 +101,7 @@ public class JdbcHdfsConfiguration {
 	public NamedColumnJdbcItemReader namedColumnJdbcItemReader(
 			@Value("#{stepExecutionContext['partClause']}") String partClause) throws Exception {
 		NamedColumnJdbcItemReaderFactory namedColumnJdbcItemReaderFactory = new NamedColumnJdbcItemReaderFactory();
-		namedColumnJdbcItemReaderFactory.setDataSource(dataSource);
+		namedColumnJdbcItemReaderFactory.setDataSource(this.dataSource);
 		namedColumnJdbcItemReaderFactory.setPartitionClause(partClause);
 		namedColumnJdbcItemReaderFactory.setTableName(props.getTableName());
 		namedColumnJdbcItemReaderFactory.setColumnNames(props.getColumnNames());
@@ -120,7 +129,7 @@ public class JdbcHdfsConfiguration {
 		environmentProperties.put("spring.profiles.active", "worker");
 
 		partitionHandler.setEnvironmentProperties(environmentProperties);
-		partitionHandler.setMaxWorkers(2);
+		partitionHandler.setMaxWorkers(props.getMaxWorkers());
 
 		return partitionHandler;
 	}
@@ -134,7 +143,7 @@ public class JdbcHdfsConfiguration {
 		partitioner.setJobExplorer(jobExplorer);
 		partitioner.setCheckColumn(props.getCheckColumn());
 		partitioner.setOverrideValue(overrideValue);
-		partitioner.setDataSource(dataSource);
+		partitioner.setDataSource(this.dataSource);
 		partitioner.setPartitions(props.getPartitions());
 		return partitioner;
 	}
@@ -152,28 +161,28 @@ public class JdbcHdfsConfiguration {
 	public HdfsTextItemWriter writer(@Value("#{stepExecutionContext['partSuffix']}") String suffix) throws Exception {
 
 		if (StringUtils.hasText(props.getFsUri())) {
-			hadoopConfiguration.set("fs.defaultFS", props.getFsUri());
+			hadoopConfiguration.set(FS_DEFAULT_FS, props.getFsUri());
 		}
 		if (StringUtils.hasText(props.getRmManagerPrinciple())) {
-			hadoopConfiguration.set("rm-manager-principal", props.getRmManagerPrinciple());
+			hadoopConfiguration.set(RM_MANAGER_PRINCIPLE, props.getRmManagerPrinciple());
 		}
 		if (StringUtils.hasText(props.getNameNodePrinciple())) {
-			hadoopConfiguration.set("namenode-principal", props.getNameNodePrinciple());
+			hadoopConfiguration.set(NAMENODE_PRINCIPLE, props.getNameNodePrinciple());
 		}
 		if (StringUtils.hasText(props.getUserPrinciple())) {
-			hadoopConfiguration.set("user-principal", props.getUserPrinciple());
+			hadoopConfiguration.set(USER_PRINCIPLE, props.getUserPrinciple());
 		}
 		if (StringUtils.hasText(props.getUserKeyTab())) {
-			hadoopConfiguration.set("user-keytab", props.getUserKeyTab());
+			hadoopConfiguration.set(USER_KEYTAB, props.getUserKeyTab());
 		}
 		if (StringUtils.hasText(props.getSecurityMethod())) {
-			hadoopConfiguration.set("security-method", props.getSecurityMethod());
+			hadoopConfiguration.set(SECURITY_METHOD, props.getSecurityMethod());
 		}
 		if (StringUtils.hasText(props.getPropertiesLocation())) {
-			hadoopConfiguration.set("properties-location", props.getPropertiesLocation());
+			hadoopConfiguration.set(PROPERTIES_LOCATION, props.getPropertiesLocation());
 		}
 		if (StringUtils.hasText(props.getRegisterUrlHandler())) {
-			hadoopConfiguration.set("register-url-handler", props.getRegisterUrlHandler());
+			hadoopConfiguration.set(REGISTER_URL_HANDLER, props.getRegisterUrlHandler());
 		}
 
 		HdfsTextItemWriter writer = new HdfsTextItemWriter();

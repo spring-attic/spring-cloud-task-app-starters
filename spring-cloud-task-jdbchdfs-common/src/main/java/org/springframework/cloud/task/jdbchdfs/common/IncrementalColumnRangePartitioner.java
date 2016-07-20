@@ -107,14 +107,28 @@ public class IncrementalColumnRangePartitioner implements Partitioner, StepExecu
 		this.partitions = partitions;
 	}
 
+	/**
+	 * The job explorer to be used by the task.
+	 *
+	 * @param jobExplorer the job explorer to use.
+	 */
 	public void setJobExplorer(JobExplorer jobExplorer) {
 		this.jobExplorer = jobExplorer;
 	}
 
+	/**
+	 * The name of the check column to be used by the task.
+	 *
+	 * @param checkColumn the check column name
+	 */
 	public void setCheckColumn(String checkColumn) {
 		this.checkColumn = checkColumn;
 	}
 
+	/**
+	 * The override value to be used by the task.
+	 * @param overrideValue the override value.
+	 */
 	public void setOverrideValue(Long overrideValue) {
 		this.overrideValue = overrideValue;
 	}

@@ -45,9 +45,9 @@ import static org.junit.Assert.assertTrue;
 public class NamedColumnJdbcItemReaderTests {
 
 	@Autowired
-	DataSource dataSource;
+	private DataSource dataSource;
 
-	NamedColumnJdbcItemReaderFactory factory;
+	private NamedColumnJdbcItemReaderFactory factory;
 
 	@Before
 	public void setup() {

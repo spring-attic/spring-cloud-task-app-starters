@@ -13,9 +13,9 @@
 	<name>spring-cloud-task-jdbchdfs-common</name>
 
 	<properties>
-		<spring.data.hadoop.store>2.3.0.BUILD-SNAPSHOT</spring.data.hadoop.store>
-		<spring.cloud.deployer.spi>1.0.0.BUILD-SNAPSHOT</spring.cloud.deployer.spi>
-		<spring.cloud.deployer.resource.maven>1.0.0.BUILD-SNAPSHOT</spring.cloud.deployer.resource.maven>
+		<spring.data.hadoop.store>2.4.0.RELEASE</spring.data.hadoop.store>
+		<spring.cloud.deployer.spi>1.0.1.RELEASE</spring.cloud.deployer.spi>
+		<spring.cloud.deployer.resource.maven>1.0.0.RELEASE</spring.cloud.deployer.resource.maven>
 	</properties>
 
 	<dependencies>
