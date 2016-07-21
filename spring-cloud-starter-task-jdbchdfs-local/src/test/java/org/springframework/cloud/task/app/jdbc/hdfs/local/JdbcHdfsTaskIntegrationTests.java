@@ -23,13 +23,13 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.UUID;
 import javax.sql.DataSource;
 
 import org.hsqldb.Server;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +74,7 @@ public abstract class JdbcHdfsTaskIntegrationTests {
 			"tableName=FOO",
 			"partitionColumn=id",
 			"columnNames=PROPKEY,PROPVALUE"})
+	@Category(JdbcHdfsIntegrationTest.class)
 	public static class JdbcHDFSBasicTest extends JdbcHdfsTaskIntegrationTests {
 
 		@Autowired
@@ -177,4 +178,5 @@ public abstract class JdbcHdfsTaskIntegrationTests {
 			return dbp;
 		}
 	}
+
 }

@@ -120,6 +120,7 @@ public class JdbcHdfsConfiguration {
 	}
 
 	@Bean
+	@Profile("master")
 	public DeployerPartitionHandler partitionHandler(TaskLauncher taskLauncher, JobExplorer jobExplorer) throws Exception {
 		MavenResource resource = MavenResource.parse(taskResource);
 
@@ -136,6 +137,7 @@ public class JdbcHdfsConfiguration {
 
 	@Bean
 	@StepScope
+	@Profile("master")
 	public IncrementalColumnRangePartitioner partitioner(JobExplorer jobExplorer, @Value("#{stepExecutionContext['overrideCheckColumnValue']}") Long overrideValue) {
 		IncrementalColumnRangePartitioner partitioner = new IncrementalColumnRangePartitioner();
 		partitioner.setTable(props.getTableName());
@@ -206,6 +208,7 @@ public class JdbcHdfsConfiguration {
 	}
 
 	@Bean
+	@Profile("master")
 	public Step step1(PartitionHandler partitionHandler, ExecutionContextPromotionListener promotionListener,
 			IncrementalColumnRangePartitioner partitioner) throws Exception {
 		Step worker = workerStep();
