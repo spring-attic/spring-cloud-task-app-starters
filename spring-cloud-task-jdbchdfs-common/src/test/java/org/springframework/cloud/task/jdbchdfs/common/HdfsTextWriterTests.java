@@ -48,6 +48,8 @@ public class HdfsTextWriterTests {
 
 	private HdfsTextItemWriter writer;
 
+	JdbcHdfsTaskProperties props;
+
 
 	@Before
 	public void setup() throws Exception {
@@ -56,12 +58,10 @@ public class HdfsTextWriterTests {
 		if (file.exists()) {
 			FileSystemUtils.deleteRecursively(file);
 		}
-		writer = new HdfsTextItemWriter();
-		writer.setLineAggregator(new org.springframework.batch.item.file.transform.PassThroughLineAggregator());
-		writer.setFileName("dataWriterBasicTest");
-		writer.setBasePath(tmpDir);
-		writer.setFsUri("file:///");
-		writer.setConfiguration(new org.apache.hadoop.conf.Configuration());
+		props = new JdbcHdfsTaskProperties();
+		props.setFsUri("file:///");
+		props.setDirectory(tmpDir);
+		props.setFileName("dataWriterBasicTest");
 	}
 
 	@After
@@ -77,8 +77,9 @@ public class HdfsTextWriterTests {
 
 	@Test
 	public void testDataWriterBasic() throws Exception {
-		writer.setRolloverThresholdInBytes(100);
-		writer.afterPropertiesSet();
+		props.setRollover(100);
+		HdfsTextItemWriterFactory factory = new HdfsTextItemWriterFactory(new org.apache.hadoop.conf.Configuration(), props, "part1");
+		writer = factory.getObject();
 		List<String> list = new ArrayList<String>();
 		list.add(ROW_1);
 		writer.write(list);
@@ -86,13 +87,14 @@ public class HdfsTextWriterTests {
 		list.add(ROW_2);
 		writer.write(list);
 		writer.close();
-		checkPartitionInstance(writer.getBasePath(), "-0.log", ROW_1 + ROW_TERMINATOR + ROW_2 + ROW_TERMINATOR);
+		checkPartitionInstance(tmpDir, "-0.csv", ROW_1 + ROW_TERMINATOR + ROW_2 + ROW_TERMINATOR);
 	}
 
 	@Test
 	public void testDataWriterRollover() throws Exception {
-		writer.setRolloverThresholdInBytes(1);
-		writer.afterPropertiesSet();
+		props.setRollover(1);
+		HdfsTextItemWriterFactory factory = new HdfsTextItemWriterFactory(new org.apache.hadoop.conf.Configuration(), props, "part1");
+		writer = factory.getObject();
 		List<String> list = new ArrayList<String>();
 		list.add(ROW_1);
 		writer.write(list);
@@ -100,8 +102,8 @@ public class HdfsTextWriterTests {
 		list.add(ROW_2);
 		writer.write(list);
 		writer.close();
-		checkPartitionInstance(writer.getBasePath(), "-0.log", ROW_1 + ROW_TERMINATOR);
-		checkPartitionInstance(writer.getBasePath(), "-1.log", ROW_2 + ROW_TERMINATOR);
+		checkPartitionInstance(tmpDir, "-0.csv", ROW_1 + ROW_TERMINATOR);
+		checkPartitionInstance(tmpDir, "-1.csv", ROW_2 + ROW_TERMINATOR);
 	}
 
 	private void checkPartitionInstance(String testDir, final String fileSuffix, String expectedData) throws Exception {

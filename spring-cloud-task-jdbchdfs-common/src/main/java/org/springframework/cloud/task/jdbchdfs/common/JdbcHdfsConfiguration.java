@@ -46,7 +46,6 @@ import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import org.springframework.util.StringUtils;
 
 /**
  * Establishes the beans required to migrate the data from jdbc to hdfs.
@@ -61,15 +60,6 @@ import org.springframework.util.StringUtils;
 public class JdbcHdfsConfiguration {
 
 	public static final String[] PROMOTION_LISTENER_KEYS = {"batch.incremental.maxId"};
-
-	public static final String FS_DEFAULT_FS = "fs.defaultFS";
-	public static final String RM_MANAGER_PRINCIPLE = "rm-manager-principal";
-	public static final String NAMENODE_PRINCIPLE = "namenode-principal";
-	public static final String USER_PRINCIPLE = "user-principal";
-	public static final String USER_KEYTAB = "user-keytab";
-	public static final String SECURITY_METHOD = "security-method";
-	public static final String PROPERTIES_LOCATION = "properties-location";
-	public static final String REGISTER_URL_HANDLER = "register-url-handler";
 
 	@Autowired
 	private Configuration hadoopConfiguration;
@@ -161,42 +151,8 @@ public class JdbcHdfsConfiguration {
 	@Bean
 	@StepScope
 	public HdfsTextItemWriter writer(@Value("#{stepExecutionContext['partSuffix']}") String suffix) throws Exception {
-
-		if (StringUtils.hasText(props.getFsUri())) {
-			hadoopConfiguration.set(FS_DEFAULT_FS, props.getFsUri());
-		}
-		if (StringUtils.hasText(props.getRmManagerPrinciple())) {
-			hadoopConfiguration.set(RM_MANAGER_PRINCIPLE, props.getRmManagerPrinciple());
-		}
-		if (StringUtils.hasText(props.getNameNodePrinciple())) {
-			hadoopConfiguration.set(NAMENODE_PRINCIPLE, props.getNameNodePrinciple());
-		}
-		if (StringUtils.hasText(props.getUserPrinciple())) {
-			hadoopConfiguration.set(USER_PRINCIPLE, props.getUserPrinciple());
-		}
-		if (StringUtils.hasText(props.getUserKeyTab())) {
-			hadoopConfiguration.set(USER_KEYTAB, props.getUserKeyTab());
-		}
-		if (StringUtils.hasText(props.getSecurityMethod())) {
-			hadoopConfiguration.set(SECURITY_METHOD, props.getSecurityMethod());
-		}
-		if (StringUtils.hasText(props.getPropertiesLocation())) {
-			hadoopConfiguration.set(PROPERTIES_LOCATION, props.getPropertiesLocation());
-		}
-		if (StringUtils.hasText(props.getRegisterUrlHandler())) {
-			hadoopConfiguration.set(REGISTER_URL_HANDLER, props.getRegisterUrlHandler());
-		}
-
-		HdfsTextItemWriter writer = new HdfsTextItemWriter();
-		writer.setLineAggregator(new org.springframework.batch.item.file.transform.PassThroughLineAggregator());
-		writer.setFileName(props.getFileName() + suffix);
-		writer.setBasePath(props.getDirectory());
-		writer.setFileExtension(props.getFileExtension());
-		writer.setRolloverThresholdInBytes(props.getRollover());
-		writer.setFsUri(props.getFsUri());
-		writer.setConfiguration(hadoopConfiguration);
-
-		return writer;
+		HdfsTextItemWriterFactory factory = new HdfsTextItemWriterFactory(hadoopConfiguration, props, suffix);
+		return factory.getObject();
 	}
 
 

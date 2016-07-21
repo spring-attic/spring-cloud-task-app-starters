@@ -18,12 +18,9 @@ package org.springframework.cloud.task.jdbchdfs.common;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.CommonConfigurationKeysPublic;
-import org.apache.hadoop.fs.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,24 +28,15 @@ import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.WriteFailedException;
 import org.springframework.batch.item.file.transform.LineAggregator;
 import org.springframework.batch.item.support.AbstractItemStreamItemWriter;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.hadoop.store.DataStoreWriter;
 import org.springframework.data.hadoop.store.output.OutputStreamWriter;
-import org.springframework.data.hadoop.store.strategy.naming.ChainedFileNamingStrategy;
-import org.springframework.data.hadoop.store.strategy.naming.FileNamingStrategy;
-import org.springframework.data.hadoop.store.strategy.naming.RollingFileNamingStrategy;
-import org.springframework.data.hadoop.store.strategy.naming.StaticFileNamingStrategy;
-import org.springframework.data.hadoop.store.strategy.rollover.RolloverStrategy;
-import org.springframework.data.hadoop.store.strategy.rollover.SizeRolloverStrategy;
-import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 /**
  * Writes items as a byte array to a destination as specified by the fsURI.
  *
  * @author Glenn Renfro
  */
-public class HdfsTextItemWriter<T> extends AbstractItemStreamItemWriter<T> implements InitializingBean {
+public class HdfsTextItemWriter<T> extends AbstractItemStreamItemWriter<T> {
 
 	private static final String DEFAULT_LINE_SEPARATOR = System.getProperty("line.separator");
 
@@ -81,37 +69,6 @@ public class HdfsTextItemWriter<T> extends AbstractItemStreamItemWriter<T> imple
 	private LineAggregator<T> lineAggregator;
 
 	private String lineSeparator = DEFAULT_LINE_SEPARATOR;
-
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		Assert.notNull(lineAggregator, "A LineAggregator must be provided.");
-		Configuration configurationToUse = null;
-		if (StringUtils.hasText(fsUri)) {
-			configurationToUse = new Configuration(configuration);
-			configurationToUse.set(CommonConfigurationKeysPublic.FS_DEFAULT_NAME_KEY, fsUri);
-		}
-		else {
-			configurationToUse = configuration;
-		}
-
-		List<FileNamingStrategy> strategies = new ArrayList<>();
-		strategies.add(new StaticFileNamingStrategy(fileName));
-		strategies.add(new RollingFileNamingStrategy());
-		strategies.add(new StaticFileNamingStrategy(fileExtension, "."));
-		ChainedFileNamingStrategy fileNamingStrategy = new ChainedFileNamingStrategy();
-		fileNamingStrategy.setStrategies(strategies);
-		RolloverStrategy rolloverStrategy = new SizeRolloverStrategy(rolloverThresholdInBytes);
-		Path baseDirPath = new Path(basePath);
-		OutputStreamWriter writer = new OutputStreamWriter(configurationToUse, baseDirPath, null);
-		writer.setInWritingSuffix(".tmp");
-		writer.setFileNamingStrategy(fileNamingStrategy);
-		writer.setRolloverStrategy(rolloverStrategy);
-		storeWriter = writer;
-		if (storeWriter instanceof InitializingBean) {
-			((InitializingBean) storeWriter).afterPropertiesSet();
-		}
-	}
-
 
 	/**
 	 * Aggregates the items to a single string and writes the data out using {@link OutputStreamWriter} as a byte array.
@@ -272,5 +229,13 @@ public class HdfsTextItemWriter<T> extends AbstractItemStreamItemWriter<T> imple
 	 */
 	public void setLineAggregator(LineAggregator<T> lineAggregator) {
 		this.lineAggregator = lineAggregator;
+	}
+
+	public DataStoreWriter<byte[]> getStoreWriter() {
+		return storeWriter;
+	}
+
+	public void setStoreWriter(DataStoreWriter<byte[]> storeWriter) {
+		this.storeWriter = storeWriter;
 	}
 }
