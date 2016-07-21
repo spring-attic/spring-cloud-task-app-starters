@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import org.apache.hadoop.conf.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,29 +39,9 @@ public class HdfsTextItemWriter<T> extends AbstractItemStreamItemWriter<T> {
 
 	private static final String DEFAULT_LINE_SEPARATOR = System.getProperty("line.separator");
 
-	public static final String DEFAULT_FILENAME = "data";
-
-	public static final String DEFAULT_BASE_PATH = "/data/";
-
-	public static final String DEFAULT_FILE_EXTENSION = "log";
-
-	public static long DEFAULT_ROLLOVER_THRESHOLD_IN_BYTES = 10 * 1024 * 1024; // 10MB
-
 	private volatile String charset = "UTF-8";
 
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
-
-	private String fileName = DEFAULT_FILENAME;
-
-	private String basePath = DEFAULT_BASE_PATH;
-
-	private String fileExtension = DEFAULT_FILE_EXTENSION;
-
-	private long rolloverThresholdInBytes = DEFAULT_ROLLOVER_THRESHOLD_IN_BYTES;
-
-	private String fsUri;
-
-	private volatile Configuration configuration;
 
 	private volatile DataStoreWriter<byte[]> storeWriter;
 
@@ -128,98 +107,6 @@ public class HdfsTextItemWriter<T> extends AbstractItemStreamItemWriter<T> {
 		catch (UnsupportedEncodingException e) {
 			throw new WriteFailedException("Could not write data.", e);
 		}
-	}
-
-
-	/**
-	 * Returns the current base file name.
-	 */
-	public String getFileName() {
-		return fileName;
-	}
-
-	/**
-	 * Establish the base file name.
-	 * @param fileName The base file name to be used.
-	 */
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-
-	/**
-	 * Retrieves the path to where the files will be written.
-	*/
-	public String getBasePath() {
-		return basePath;
-	}
-
-	/**
-	 * Set the path to where the files will be written.
-	 * @param basePath The location where files should be written
-	 */
-	public void setBasePath(String basePath) {
-		this.basePath = basePath;
-	}
-
-	/**
-	 * Returns the the current file extension.
-	 */
-	public String getFileExtension() {
-		return fileExtension;
-	}
-
-	/**
-	 * Sets the extension on the file to be written
-	 * @param fileExtension the extension to use.
-	 */
-	public void setFileExtension(String fileExtension) {
-		this.fileExtension = fileExtension;
-	}
-
-	/**
-	 * Returns the size in bytes that a file will be rolled over.
-	 */
-	public long getRolloverThresholdInBytes() {
-		return rolloverThresholdInBytes;
-	}
-
-	/**
-	 * Establish the size in bytes that a file will be rolled over.
-	 * @param rolloverThresholdInBytes the size in bytes.
-	 */
-	public void setRolloverThresholdInBytes(long rolloverThresholdInBytes) {
-		this.rolloverThresholdInBytes = rolloverThresholdInBytes;
-	}
-
-	/**
-	 * Retrieve the fsUri.
-	 * @return the current fsUri.
-	 */
-	public String getFsUri() {
-		return fsUri;
-	}
-
-	/**
-	 * Set the fsUri for the Hadoop instance in which to which to write.
-	 * @param fsUri the fsUri to use.
-	 */
-	public void setFsUri(String fsUri) {
-		this.fsUri = fsUri;
-	}
-
-	/**
-	 * Retrieve the Hadoop Configuration.
-	 */
-	public Configuration getConfiguration() {
-		return configuration;
-	}
-
-	/**
-	 * Set the Hadoop Configuration.
-	 * @param configuration Hadoop Configuration to use.
-	 */
-	public void setConfiguration(Configuration configuration) {
-		this.configuration = configuration;
 	}
 
 	/**

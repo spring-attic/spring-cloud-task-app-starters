@@ -63,6 +63,7 @@ public class HdfsTextItemWriterFactory implements FactoryBean<HdfsTextItemWriter
 		fileNamingStrategy.setStrategies(strategies);
 		RolloverStrategy rolloverStrategy = new SizeRolloverStrategy(props.getRollover());
 		Path baseDirPath = new Path(props.getDirectory());
+		setupConfiguration(configuration, props);
 		OutputStreamWriter writer = new OutputStreamWriter(configuration, baseDirPath, null);
 		writer.setInWritingSuffix(".tmp");
 		writer.setFileNamingStrategy(fileNamingStrategy);
