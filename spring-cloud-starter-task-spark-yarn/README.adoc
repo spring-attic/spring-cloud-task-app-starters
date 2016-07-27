@@ -1,22 +1,35 @@
 //tag::ref-doc[]
-= Spark Client Task
+= Spark YARN Task
 
-This task is intended to launch a Spark application from a task. The task submits the Spark application for local execution. This task is appropriate for a local deployment where any local file references can be resolved. It is not meant for any type of cluster deployments. 
+This task is intended to launch a Spark application from a task. The task submits the Spark application to a YARN clusterfor execution. This task is appropriate for a deployment that has access to a Hadoop YARN cluster. The Spark application jar and the Spark Assembly jar should be referenced from an HDFS location. 
 
 == Options
 
 // see syntax (soon to be automatically generated) in spring-cloud-stream starters
-The **$$spark-client$$** $$task$$ has the following options:
+The **$$spark-yarn$$** $$task$$ has the following options:
 
 //tag::configuration-properties[]
 $$spark.app-args$$:: $$The arguments for the Spark application.$$ *($$String$$, default: `$$[]$$`)*
 $$spark.app-class$$:: $$The main class for the Spark application.$$ *($$String$$, default: `$$<none>$$`)*
 $$spark.app-jar$$:: $$The path to a bundled jar that includes your application and its dependencies, excluding any Spark dependencies.$$ *($$String$$, default: `$$<none>$$`)*
 $$spark.app-name$$:: $$The name to use for the Spark application submission.$$ *($$String$$, default: `$$<none>$$`)*
+$$spark.assembly-jar$$:: $$The path for the Spark Assembly jar to use.$$ *($$String$$, default: `$$<none>$$`)*
 $$spark.executor-memory$$:: $$The memory setting to be used for each executor.$$ *($$String$$, default: `$$1024M$$`)*
-$$spark.master$$:: $$The master setting to be used (local, local[N] or local[*]).$$ *($$String$$, default: `$$local$$`)*
+$$spark.num-executors$$:: $$The number of executors to use.$$ *($$Integer$$, default: `$$1$$`)*
 $$spark.resource-archives$$:: $$A comma separated list of archive files to be included with the app submission.$$ *($$String$$, default: `$$<none>$$`)*
 $$spark.resource-files $$:: $$A comma separated list of files to be included with the application submission.$$ *($$String$$, default: `$$<none>$$`)*
 //end::configuration-properties[]
 
 //end::ref-doc[]
+
+== Build
+
+```
+$ mvn clean package
+```
+
+== Run
+
+```
+$ java -jar target/spark-client-task-${version}-exec.jar
+```
