@@ -28,7 +28,7 @@ import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperti
  * @author Thomas Risberg
  */
 @ConfigurationProperties
-public class SparkYarnTaskProperties extends SparkAppCommonTaskProperties {
+public class SparkYarnTaskProperties {
 
     /**
      * The path for the Spark Assembly jar to use.
