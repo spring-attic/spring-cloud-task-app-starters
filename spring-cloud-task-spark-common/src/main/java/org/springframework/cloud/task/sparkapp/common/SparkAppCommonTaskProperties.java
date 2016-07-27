@@ -30,7 +30,7 @@ import javax.validation.constraints.NotNull;
 public class SparkAppCommonTaskProperties {
 
     /**
-     * The name of the Spark application.
+     * The name to use for the Spark application submission.
      */
     @Value("${spring.application.name:sparkapp-task}")
     private String appName;
@@ -46,17 +46,17 @@ public class SparkAppCommonTaskProperties {
     private String appJar;
 
     /**
-     * The path to a bundled jar that includes your application and its dependencies, excluding any Spark dependencies.
+     * The arguments for the Spark application.
      */
     private String[] appArgs = new String[]{};
 
     /**
-     * A comma separated list of files to be included with the app submission.
+     * A comma separated list of files to be included with the application submission.
      */
     private String resourceFiles;
 
     /**
-     * The A comma separated list of archive files to be included with the app submission.
+     * A comma separated list of archive files to be included with the app submission.
      */
     private String resourceArchives;
 
@@ -64,11 +64,6 @@ public class SparkAppCommonTaskProperties {
      * The memory setting to be used for each executor.
      */
     private String executorMemory = "1024M";
-
-    /**
-     * The arguments for the Spark app.
-     */
-    private String[] sparkAppArgs = new String[]{};
 
     public String getAppName() {
         return appName;
@@ -126,13 +121,5 @@ public class SparkAppCommonTaskProperties {
 
     public void setExecutorMemory(String executorMemory) {
         this.executorMemory = executorMemory;
-    }
-
-    public String[] getSparkAppArgs() {
-        return sparkAppArgs;
-    }
-
-    public void setSparkAppArgs(String[] sparkAppArgs) {
-        this.sparkAppArgs = sparkAppArgs;
     }
 }

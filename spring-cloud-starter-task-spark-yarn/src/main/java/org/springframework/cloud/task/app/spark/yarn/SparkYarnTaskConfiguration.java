@@ -67,7 +67,7 @@ public class SparkYarnTaskConfiguration {
         @Override
         public void run(String... args) throws Exception {
             SparkConf sparkConf = new SparkConf();
-            sparkConf.set("spark.yarn.jar", config.getSparkAssemblyJar());
+            sparkConf.set("spark.yarn.jar", config.getAssemblyJar());
 
             List<String> submitArgs = new ArrayList<String>();
             if (StringUtils.hasText(commonConfig.getAppName())) {

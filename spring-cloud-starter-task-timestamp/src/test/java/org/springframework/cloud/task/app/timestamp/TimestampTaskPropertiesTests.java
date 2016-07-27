@@ -32,7 +32,7 @@ public class TimestampTaskPropertiesTests {
     @Test(expected = IllegalArgumentException.class)
     public void testEmptyFormat() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "format:");
+        EnvironmentTestUtils.addEnvironment(context, "timestamp.format:");
         context.register(Conf.class);
         context.refresh();
         TimestampTaskProperties properties = context.getBean(TimestampTaskProperties.class);

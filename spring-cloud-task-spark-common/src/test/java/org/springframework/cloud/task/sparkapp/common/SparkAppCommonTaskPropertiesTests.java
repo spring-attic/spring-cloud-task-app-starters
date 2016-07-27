@@ -36,9 +36,9 @@ public class SparkAppCommonTaskPropertiesTests {
     @Test
     public void testAppNameCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "app-name: test");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-name: test");
         context.register(Conf.class);
         context.refresh();
         SparkAppCommonTaskProperties properties = context.getBean(SparkAppCommonTaskProperties.class);
@@ -48,8 +48,8 @@ public class SparkAppCommonTaskPropertiesTests {
     @Test
     public void testAppClassCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: MyTestClass");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: MyTestClass");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
         context.register(Conf.class);
         context.refresh();
         SparkAppCommonTaskProperties properties = context.getBean(SparkAppCommonTaskProperties.class);
@@ -67,8 +67,8 @@ public class SparkAppCommonTaskPropertiesTests {
     @Test
     public void testAppJarCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: my-app-jar-0.0.1.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: my-app-jar-0.0.1.jar");
         context.register(Conf.class);
         context.refresh();
         SparkAppCommonTaskProperties properties = context.getBean(SparkAppCommonTaskProperties.class);
@@ -78,7 +78,7 @@ public class SparkAppCommonTaskPropertiesTests {
     @Test(expected = BeanCreationException.class)
     public void testAppJArIsRequired() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
         context.register(Conf.class);
         context.refresh();
     }
@@ -86,9 +86,9 @@ public class SparkAppCommonTaskPropertiesTests {
     @Test
     public void testAppArgsCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "app-args: arg1,arg2");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-args: arg1,arg2");
         context.register(Conf.class);
         context.refresh();
         SparkAppCommonTaskProperties properties = context.getBean(SparkAppCommonTaskProperties.class);
@@ -98,9 +98,9 @@ public class SparkAppCommonTaskPropertiesTests {
     @Test
     public void testResourceFilesCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "resource-files: test.txt");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.resource-files: test.txt");
         context.register(Conf.class);
         context.refresh();
         SparkAppCommonTaskProperties properties = context.getBean(SparkAppCommonTaskProperties.class);
@@ -110,9 +110,9 @@ public class SparkAppCommonTaskPropertiesTests {
     @Test
     public void testResourceArchivesCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "resource-archives: foo.jar,bar.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.resource-archives: foo.jar,bar.jar");
         context.register(Conf.class);
         context.refresh();
         SparkAppCommonTaskProperties properties = context.getBean(SparkAppCommonTaskProperties.class);
@@ -122,9 +122,9 @@ public class SparkAppCommonTaskPropertiesTests {
     @Test
     public void testExecutorMemoryCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "executor-memory: 2048M");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.executor-memory: 2048M");
         context.register(Conf.class);
         context.refresh();
         SparkAppCommonTaskProperties properties = context.getBean(SparkAppCommonTaskProperties.class);

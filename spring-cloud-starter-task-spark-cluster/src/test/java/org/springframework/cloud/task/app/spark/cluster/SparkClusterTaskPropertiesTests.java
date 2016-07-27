@@ -34,9 +34,9 @@ public class SparkClusterTaskPropertiesTests {
     @Test
     public void testMasterCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "master: spark://borneo:7077");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.master: spark://borneo:7077");
         context.register(Conf.class);
         context.refresh();
         SparkClusterTaskProperties properties = context.getBean(SparkClusterTaskProperties.class);
@@ -46,9 +46,9 @@ public class SparkClusterTaskPropertiesTests {
     @Test
     public void testRestUrlCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "rest-url: spark://foo:6066");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.rest-url: spark://foo:6066");
         context.register(Conf.class);
         context.refresh();
         SparkClusterTaskProperties properties = context.getBean(SparkClusterTaskProperties.class);
@@ -58,10 +58,10 @@ public class SparkClusterTaskPropertiesTests {
     @Test
     public void testAppStatusPollIntervalCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "rest-url: spark://dummy:6066");
-        EnvironmentTestUtils.addEnvironment(context, "app-status-poll-interval: 20000");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.rest-url: spark://dummy:6066");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-status-poll-interval: 20000");
         context.register(Conf.class);
         context.refresh();
         SparkClusterTaskProperties properties = context.getBean(SparkClusterTaskProperties.class);

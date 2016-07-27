@@ -34,9 +34,9 @@ public class SparkClientTaskPropertiesTests {
     @Test
     public void testMasterCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "master: local[4]");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.master: local[4]");
         context.register(Conf.class);
         context.refresh();
         SparkClientTaskProperties properties = context.getBean(SparkClientTaskProperties.class);

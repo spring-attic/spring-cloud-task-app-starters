@@ -35,21 +35,21 @@ public class SparkYarnTaskPropertiesTests {
     @Test
     public void testSparkAssemblyJarCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
         EnvironmentTestUtils.addEnvironment(context,
-                "spark-assembly-jar: hdfs:///app/spark/spark-assembly-1.5.2-hadoop2.6.0.jar");
+                "spark.assembly-jar: hdfs:///app/spark/spark-assembly-1.6.2-hadoop2.6.0.jar");
         context.register(Conf.class);
         context.refresh();
         SparkYarnTaskProperties properties = context.getBean(SparkYarnTaskProperties.class);
-        assertThat(properties.getSparkAssemblyJar(), equalTo("hdfs:///app/spark/spark-assembly-1.5.2-hadoop2.6.0.jar"));
+        assertThat(properties.getAssemblyJar(), equalTo("hdfs:///app/spark/spark-assembly-1.6.2-hadoop2.6.0.jar"));
     }
 
     @Test(expected = BeanCreationException.class)
     public void testSparkAssemblyJarIsRequired() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
         context.register(Conf.class);
         context.refresh();
     }
@@ -57,10 +57,10 @@ public class SparkYarnTaskPropertiesTests {
     @Test
     public void testNumExecutorsCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "spark-assembly-jar: hdfs:///app/spark/dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "num-executors: 4");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "spark.app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.assembly-jar: hdfs:///app/spark/dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "spark.num-executors: 4");
         context.register(Conf.class);
         context.refresh();
         SparkYarnTaskProperties properties = context.getBean(SparkYarnTaskProperties.class);

@@ -19,7 +19,6 @@ package org.springframework.cloud.task.app.spark.yarn;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperties;
 
 /**
  * Configuration properties to be used for YARN submission. These are in addition to the ones
@@ -33,7 +32,7 @@ public class SparkYarnTaskProperties {
     /**
      * The path for the Spark Assembly jar to use.
      */
-    private String sparkAssemblyJar;
+    private String assemblyJar;
 
     /**
      * The number of executors to use.
@@ -41,12 +40,12 @@ public class SparkYarnTaskProperties {
     private int numExecutors = 1;
 
     @NotNull
-    public String getSparkAssemblyJar() {
-        return sparkAssemblyJar;
+    public String getAssemblyJar() {
+        return assemblyJar;
     }
 
-    public void setSparkAssemblyJar(String sparkAssemblyJar) {
-        this.sparkAssemblyJar = sparkAssemblyJar;
+    public void setAssemblyJar(String assemblyJar) {
+        this.assemblyJar = assemblyJar;
     }
 
     public int getNumExecutors() {
