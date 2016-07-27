@@ -26,7 +26,7 @@ import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperti
  * @author Thomas Risberg
  */
 @ConfigurationProperties
-public class SparkClusterTaskProperties extends SparkAppCommonTaskProperties {
+public class SparkClusterTaskProperties {
 
     /**
      * The URL for the Spark REST API to be used (spark://host:port).
