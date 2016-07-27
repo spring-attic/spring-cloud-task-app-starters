@@ -1,0 +1,15 @@
+//tag::ref-doc[]
+= Timestamp Task
+
+A task that prints a timestamp to `stdout`. Intended to primarily be used for testing.
+
+== Options
+
+// see syntax (soon to be automatically generated) in spring-cloud-stream starters
+The **$$timestamp$$** $$task$$ has the following options:
+
+//tag::configuration-properties[]
+$$timestamp.format$$:: $$The timestamp format, "yyyy-MM-dd HH:mm:ss.SSS" by default.$$ *($$String$$, default: `$$yyyy-MM-dd HH:mm:ss.SSS$$`)*
+//end::configuration-properties[]
+
+//end::ref-doc[]
