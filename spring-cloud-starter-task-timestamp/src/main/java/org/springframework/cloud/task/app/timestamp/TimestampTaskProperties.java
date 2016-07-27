@@ -22,7 +22,7 @@ import org.springframework.util.Assert;
 /**
  * @author Glenn Renfro
  */
-@ConfigurationProperties
+@ConfigurationProperties("timestamp")
 public class TimestampTaskProperties {
 
     /**
