@@ -32,6 +32,18 @@ import org.springframework.context.annotation.Configuration;
 public class SparkClusterTaskPropertiesTests {
 
     @Test
+    public void testMasterCanBeCustomized() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
+        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
+        EnvironmentTestUtils.addEnvironment(context, "master: spark://borneo:7077");
+        context.register(Conf.class);
+        context.refresh();
+        SparkClusterTaskProperties properties = context.getBean(SparkClusterTaskProperties.class);
+        assertThat(properties.getMaster(), equalTo("spark://borneo:7077"));
+    }
+
+    @Test
     public void testRestUrlCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");

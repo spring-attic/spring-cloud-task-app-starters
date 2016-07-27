@@ -120,18 +120,6 @@ public class SparkAppCommonTaskPropertiesTests {
     }
 
     @Test
-    public void testMasterCanBeCustomized() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-        EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");
-        EnvironmentTestUtils.addEnvironment(context, "app-jar: dummy.jar");
-        EnvironmentTestUtils.addEnvironment(context, "master: local[4]");
-        context.register(Conf.class);
-        context.refresh();
-        SparkAppCommonTaskProperties properties = context.getBean(SparkAppCommonTaskProperties.class);
-        assertThat(properties.getMaster(), equalTo("local[4]"));
-    }
-
-    @Test
     public void testExecutorMemoryCanBeCustomized() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
         EnvironmentTestUtils.addEnvironment(context, "app-class: Dummy");

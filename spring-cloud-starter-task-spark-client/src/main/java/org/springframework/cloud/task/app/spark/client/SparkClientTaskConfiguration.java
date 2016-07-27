@@ -40,7 +40,7 @@ import org.springframework.util.StringUtils;
  */
 @EnableTask
 @Configuration
-@EnableConfigurationProperties({ SparkAppCommonTaskProperties.class })
+@EnableConfigurationProperties({ SparkClientTaskProperties.class, SparkAppCommonTaskProperties.class })
 public class SparkClientTaskConfiguration {
 
     @Bean
@@ -53,36 +53,39 @@ public class SparkClientTaskConfiguration {
         private final Log logger = LogFactory.getLog(SparkAppClientRunner.class);
 
         @Autowired
-        private SparkAppCommonTaskProperties config;
+        private SparkClientTaskProperties config;
+
+        @Autowired
+        private SparkAppCommonTaskProperties commonConfig;
 
 
         @Override
         public void run(String... args) throws Exception {
             ArrayList<String> argList = new ArrayList<>();
-            if (StringUtils.hasText(config.getAppName())) {
+            if (StringUtils.hasText(commonConfig.getAppName())) {
                 argList.add("--name");
-                argList.add(config.getAppName());
+                argList.add(commonConfig.getAppName());
             }
             argList.add("--class");
-            argList.add(config.getAppClass());
+            argList.add(commonConfig.getAppClass());
             argList.add("--master");
             argList.add(config.getMaster());
             argList.add("--deploy-mode");
             argList.add("client");
 
-            argList.add(config.getAppJar());
+            argList.add(commonConfig.getAppJar());
 
-            if (StringUtils.hasText(config.getResourceFiles())) {
+            if (StringUtils.hasText(commonConfig.getResourceFiles())) {
                 argList.add("--files");
-                argList.add(config.getResourceFiles());
+                argList.add(commonConfig.getResourceFiles());
             }
 
-            if (StringUtils.hasText(config.getResourceArchives())) {
+            if (StringUtils.hasText(commonConfig.getResourceArchives())) {
                 argList.add("--jars");
-                argList.add(config.getResourceArchives());
+                argList.add(commonConfig.getResourceArchives());
             }
 
-            argList.addAll(Arrays.asList(config.getAppArgs()));
+            argList.addAll(Arrays.asList(commonConfig.getAppArgs()));
 
             try {
                 SparkSubmit.main(argList.toArray(new String[argList.size()]));

@@ -61,11 +61,6 @@ public class SparkAppCommonTaskProperties {
     private String resourceArchives;
 
     /**
-     * The master setting to be used (local[*] or spark://host:port).
-     */
-    private String master = "local";
-
-    /**
      * The memory setting to be used for each executor.
      */
     private String executorMemory = "1024M";
@@ -123,14 +118,6 @@ public class SparkAppCommonTaskProperties {
 
     public void setResourceArchives(String resourceArchives) {
         this.resourceArchives = resourceArchives;
-    }
-
-    public String getMaster() {
-        return master;
-    }
-
-    public void setMaster(String master) {
-        this.master = master;
     }
 
     public String getExecutorMemory() {

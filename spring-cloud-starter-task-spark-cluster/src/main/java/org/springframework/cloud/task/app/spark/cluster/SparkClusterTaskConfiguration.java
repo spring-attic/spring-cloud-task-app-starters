@@ -31,6 +31,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
+import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
@@ -47,7 +48,7 @@ import scala.collection.JavaConverters$;
  */
 @EnableTask
 @Configuration
-@EnableConfigurationProperties({ SparkClusterTaskProperties.class })
+@EnableConfigurationProperties({ SparkClusterTaskProperties.class, SparkAppCommonTaskProperties.class })
 public class SparkClusterTaskConfiguration {
 
     @Bean
@@ -62,24 +63,27 @@ public class SparkClusterTaskConfiguration {
         @Autowired
         private SparkClusterTaskProperties config;
 
+        @Autowired
+        private SparkAppCommonTaskProperties commonConfig;
+
         @Override
         public void run(String... args) throws Exception {
 
             RestSubmissionClient rsc = new RestSubmissionClient(config.getRestUrl());
 
             Map<String, String> sparkProps = new HashMap<>();
-            sparkProps.put("spark.app.name", config.getAppName());
+            sparkProps.put("spark.app.name", commonConfig.getAppName());
             sparkProps.put("spark.master", config.getMaster());
-            if (StringUtils.hasText(config.getExecutorMemory())) {
-                sparkProps.put("spark.executor.memory", config.getExecutorMemory());
+            if (StringUtils.hasText(commonConfig.getExecutorMemory())) {
+                sparkProps.put("spark.executor.memory", commonConfig.getExecutorMemory());
             }
-            if (StringUtils.hasText(config.getResourceArchives())) {
-                sparkProps.put("spark.jars", config.getAppJar().trim() + "," + config.getResourceArchives().trim());
+            if (StringUtils.hasText(commonConfig.getResourceArchives())) {
+                sparkProps.put("spark.jars", commonConfig.getAppJar().trim() + "," + commonConfig.getResourceArchives().trim());
             } else {
-                sparkProps.put("spark.jars", config.getAppJar());
+                sparkProps.put("spark.jars", commonConfig.getAppJar());
             }
-            if (StringUtils.hasText(config.getResourceFiles())) {
-                sparkProps.put("spark.files", config.getResourceFiles());
+            if (StringUtils.hasText(commonConfig.getResourceFiles())) {
+                sparkProps.put("spark.files", commonConfig.getResourceFiles());
             }
             scala.collection.immutable.Map<String, String> envMap =
                     JavaConverters$.MODULE$.mapAsScalaMapConverter(new HashMap<String, String>()).asScala()
@@ -89,9 +93,9 @@ public class SparkClusterTaskConfiguration {
                             .toMap(Predef$.MODULE$.<scala.Tuple2<String, String>>conforms());
 
             CreateSubmissionRequest csr = rsc.constructSubmitRequest(
-                    config.getAppJar(),
-                    config.getAppClass(),
-                    config.getAppArgs(),
+                    commonConfig.getAppJar(),
+                    commonConfig.getAppClass(),
+                    commonConfig.getAppArgs(),
                     propsMap,
                     envMap);
 

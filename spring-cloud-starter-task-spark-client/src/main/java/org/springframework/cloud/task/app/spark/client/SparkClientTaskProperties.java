@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package org.springframework.cloud.task.app.spark.cluster;
+package org.springframework.cloud.task.app.spark.client;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperties;
 
 /**
  * Configuration properties to be used for cluster submission. These are in addition to the ones
@@ -26,22 +25,12 @@ import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperti
  * @author Thomas Risberg
  */
 @ConfigurationProperties
-public class SparkClusterTaskProperties {
+public class SparkClientTaskProperties {
 
     /**
-     * The master setting to be used (spark://host:port).
+     * The master setting to be used (local, local[N] or local[*]).
      */
-    private String master = "spark://localhost:7077";
-
-    /**
-     * The URL for the Spark REST API to be used (spark://host:port).
-     */
-    private String restUrl = "spark://localhost:6066";
-
-    /**
-     * The interval (ms) to use for polling for the App status.
-     */
-    private long appStatusPollInterval = 10000L;
+    private String master = "local";
 
     public String getMaster() {
         return master;
@@ -49,21 +38,5 @@ public class SparkClusterTaskProperties {
 
     public void setMaster(String master) {
         this.master = master;
-    }
-
-    public String getRestUrl() {
-        return restUrl;
-    }
-
-    public void setRestUrl(String restUrl) {
-        this.restUrl = restUrl;
-    }
-
-    public long getAppStatusPollInterval() {
-        return appStatusPollInterval;
-    }
-
-    public void setAppStatusPollInterval(long appStatusPollInterval) {
-        this.appStatusPollInterval = appStatusPollInterval;
     }
 }
