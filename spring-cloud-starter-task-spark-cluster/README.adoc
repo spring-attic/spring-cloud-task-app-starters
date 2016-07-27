@@ -1,12 +1,12 @@
 //tag::ref-doc[]
-= Spark Client Task
+= Spark Cluster Task
 
-This task is intended to launch a Spark application. The task submits the Spark application for local execution. This task is appropriate for a local deployment where any local file references can be resolved. It is not meant for any type of cluster deployments.
+This task is intended to launch a Spark application. The task submits the Spark application for execution in a Spark cluster. This task is appropriate for a deployments where any file references can be resolved to a shared location.
 
 == Options
 
 // see syntax (soon to be automatically generated) in spring-cloud-stream starters
-The **$$spark-client$$** $$task$$ has the following options:
+The **$$spark-cluster$$** $$task$$ has the following options:
 
 //tag::configuration-properties[]
 $$spark.app-args$$:: $$The arguments for the Spark application.$$ *($$String$$, default: `$$[]$$`)*
@@ -14,9 +14,11 @@ $$spark.app-class$$:: $$The main class for the Spark application.$$ *($$String$$
 $$spark.app-jar$$:: $$The path to a bundled jar that includes your application and its dependencies, excluding any Spark dependencies.$$ *($$String$$, default: `$$<none>$$`)*
 $$spark.app-name$$:: $$The name to use for the Spark application submission.$$ *($$String$$, default: `$$<none>$$`)*
 $$spark.executor-memory$$:: $$The memory setting to be used for each executor.$$ *($$String$$, default: `$$1024M$$`)*
-$$spark.master$$:: $$The master setting to be used (local, local[N] or local[*]).$$ *($$String$$, default: `$$local$$`)*
+$$spark.master$$:: $$The master setting to be used (spark://host:port).$$ *($$String$$, default: `$$spark://localhost:7077$$`)*
 $$spark.resource-archives$$:: $$A comma separated list of archive files to be included with the app submission.$$ *($$String$$, default: `$$<none>$$`)*
 $$spark.resource-files $$:: $$A comma separated list of files to be included with the application submission.$$ *($$String$$, default: `$$<none>$$`)*
+$$spark.rest-url$$:: $$The URL for the Spark REST API to be used (spark://host:port).$$ *($$String$$, default: `$$spark://localhost:6066$$`)*
+$$spark.app-status-poll-interval$$:: $$The interval (ms) to use for polling for the App status.$$ *($$long$$, default: `$$1000L$$`)*
 //end::configuration-properties[]
 
 //end::ref-doc[]
