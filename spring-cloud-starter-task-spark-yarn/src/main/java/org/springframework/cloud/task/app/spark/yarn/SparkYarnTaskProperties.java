@@ -27,7 +27,7 @@ import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperti
  *
  * @author Thomas Risberg
  */
-@ConfigurationProperties("sparkyarn")
+@ConfigurationProperties("spark")
 public class SparkYarnTaskProperties {
 
     /**

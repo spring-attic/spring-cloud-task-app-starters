@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
  *
  * @author Thomas Risberg
  */
-@ConfigurationProperties("sparkcommon")
+@ConfigurationProperties("spark")
 public class SparkAppCommonTaskProperties {
 
     /**

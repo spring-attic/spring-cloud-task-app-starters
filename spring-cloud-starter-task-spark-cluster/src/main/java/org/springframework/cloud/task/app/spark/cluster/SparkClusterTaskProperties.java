@@ -25,7 +25,7 @@ import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperti
  *
  * @author Thomas Risberg
  */
-@ConfigurationProperties("sparkcluster")
+@ConfigurationProperties("spark")
 public class SparkClusterTaskProperties {
 
     /**

@@ -24,7 +24,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * @author Thomas Risberg
  */
-@ConfigurationProperties("sparkclient")
+@ConfigurationProperties("spark")
 public class SparkClientTaskProperties {
 
     /**
