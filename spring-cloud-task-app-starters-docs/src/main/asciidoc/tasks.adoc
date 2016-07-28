@@ -2,8 +2,6 @@
 
 :leveloffset: +1
 :app-starters-root:  https://raw.githubusercontent.com/spring-cloud/spring-cloud-task-app-starters/master
-:app-starters-root:  file:///Users/trisberg/Projects/trisberg/spring-cloud-task-app-starters
-
 
 [[spring-cloud-task-modules-spark-client]]
 include::{app-starters-root}/spring-cloud-starter-task-spark-client/README.adoc[tags=ref-doc]
