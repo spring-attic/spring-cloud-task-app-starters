@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.springframework.cloud.task.app</groupId>
   <artifactId>spring-cloud-task-app-starters</artifactId>
-  <version>1.0.0.BUILD-SNAPSHOT</version>
+  <version>1.0.0.RELEASE</version>
   <packaging>pom</packaging>
 
   <parent>
@@ -45,7 +45,7 @@
       <dependency>
         <groupId>org.springframework.cloud.task.app</groupId>
         <artifactId>spring-cloud-task-app-dependencies</artifactId>
-        <version>1.0.0.BUILD-SNAPSHOT</version>
+        <version>1.0.0.RELEASE</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
