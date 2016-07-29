@@ -32,7 +32,6 @@
     <module>spring-cloud-starter-task-spark-yarn</module>
     <module>spring-cloud-starter-task-sqoop-job</module>
     <module>spring-cloud-starter-task-sqoop-tool</module>
-    <module>spring-cloud-task-spark-common</module>
     <module>spring-cloud-task-sqoop-common</module>
     <module>spring-cloud-task-app-dependencies</module>
     <module>spring-cloud-task-app-descriptor</module>

@@ -43,7 +43,7 @@ import org.springframework.util.StringUtils;
  */
 @EnableTask
 @org.springframework.context.annotation.Configuration
-@EnableConfigurationProperties({ SparkYarnTaskProperties.class, SparkAppCommonTaskProperties.class })
+@EnableConfigurationProperties(SparkYarnTaskProperties.class)
 public class SparkYarnTaskConfiguration {
 
     @Bean
@@ -61,36 +61,33 @@ public class SparkYarnTaskConfiguration {
         @Autowired
         private SparkYarnTaskProperties config;
 
-        @Autowired
-        private SparkAppCommonTaskProperties commonConfig;
-
         @Override
         public void run(String... args) throws Exception {
             SparkConf sparkConf = new SparkConf();
             sparkConf.set("spark.yarn.jar", config.getAssemblyJar());
 
             List<String> submitArgs = new ArrayList<String>();
-            if (StringUtils.hasText(commonConfig.getAppName())) {
+            if (StringUtils.hasText(config.getAppName())) {
                 submitArgs.add("--name");
-                submitArgs.add(commonConfig.getAppName());
+                submitArgs.add(config.getAppName());
             }
             submitArgs.add("--jar");
-            submitArgs.add(commonConfig.getAppJar());
+            submitArgs.add(config.getAppJar());
             submitArgs.add("--class");
-            submitArgs.add(commonConfig.getAppClass());
-            if (StringUtils.hasText(commonConfig.getResourceFiles())) {
+            submitArgs.add(config.getAppClass());
+            if (StringUtils.hasText(config.getResourceFiles())) {
                 submitArgs.add("--files");
-                submitArgs.add(commonConfig.getResourceFiles());
+                submitArgs.add(config.getResourceFiles());
             }
-            if (StringUtils.hasText(commonConfig.getResourceArchives())) {
+            if (StringUtils.hasText(config.getResourceArchives())) {
                 submitArgs.add("--archives");
-                submitArgs.add(commonConfig.getResourceArchives());
+                submitArgs.add(config.getResourceArchives());
             }
             submitArgs.add("--executor-memory");
-            submitArgs.add(commonConfig.getExecutorMemory());
+            submitArgs.add(config.getExecutorMemory());
             submitArgs.add("--num-executors");
             submitArgs.add("" + config.getNumExecutors());
-            for (String arg : commonConfig.getAppArgs()) {
+            for (String arg : config.getAppArgs()) {
                 submitArgs.add("--arg");
                 submitArgs.add(arg);
             }

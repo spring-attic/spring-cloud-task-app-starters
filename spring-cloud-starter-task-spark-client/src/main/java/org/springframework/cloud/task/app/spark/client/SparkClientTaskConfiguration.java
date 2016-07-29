@@ -27,7 +27,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
-import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
@@ -40,7 +39,7 @@ import org.springframework.util.StringUtils;
  */
 @EnableTask
 @Configuration
-@EnableConfigurationProperties({ SparkClientTaskProperties.class, SparkAppCommonTaskProperties.class })
+@EnableConfigurationProperties(SparkClientTaskProperties.class)
 public class SparkClientTaskConfiguration {
 
     @Bean
@@ -55,37 +54,34 @@ public class SparkClientTaskConfiguration {
         @Autowired
         private SparkClientTaskProperties config;
 
-        @Autowired
-        private SparkAppCommonTaskProperties commonConfig;
-
 
         @Override
         public void run(String... args) throws Exception {
             ArrayList<String> argList = new ArrayList<>();
-            if (StringUtils.hasText(commonConfig.getAppName())) {
+            if (StringUtils.hasText(config.getAppName())) {
                 argList.add("--name");
-                argList.add(commonConfig.getAppName());
+                argList.add(config.getAppName());
             }
             argList.add("--class");
-            argList.add(commonConfig.getAppClass());
+            argList.add(config.getAppClass());
             argList.add("--master");
             argList.add(config.getMaster());
             argList.add("--deploy-mode");
             argList.add("client");
 
-            argList.add(commonConfig.getAppJar());
+            argList.add(config.getAppJar());
 
-            if (StringUtils.hasText(commonConfig.getResourceFiles())) {
+            if (StringUtils.hasText(config.getResourceFiles())) {
                 argList.add("--files");
-                argList.add(commonConfig.getResourceFiles());
+                argList.add(config.getResourceFiles());
             }
 
-            if (StringUtils.hasText(commonConfig.getResourceArchives())) {
+            if (StringUtils.hasText(config.getResourceArchives())) {
                 argList.add("--jars");
-                argList.add(commonConfig.getResourceArchives());
+                argList.add(config.getResourceArchives());
             }
 
-            argList.addAll(Arrays.asList(commonConfig.getAppArgs()));
+            argList.addAll(Arrays.asList(config.getAppArgs()));
 
             try {
                 SparkSubmit.main(argList.toArray(new String[argList.size()]));

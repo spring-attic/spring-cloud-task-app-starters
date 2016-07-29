@@ -31,10 +31,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes=SparkClientRunnerTests.TestSparkClientTaskApplication.class)
-@IntegrationTest({"app-name:pi",
-        "app-jar:dummy.jar",
-        "app-class:org.apache.spark.examples.JavaSparkPi",
-        "app-args:10"})
+@IntegrationTest({"spark.app-name:pi",
+        "spark.app-jar:dummy.jar",
+        "spark.app-class:org.apache.spark.examples.JavaSparkPi",
+        "spark.app-args:10"})
 @Ignore
 public class SparkClientRunnerTests {
 
