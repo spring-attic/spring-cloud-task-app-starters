@@ -10,7 +10,7 @@
     <parent>
         <groupId>org.springframework.cloud.task.app</groupId>
         <artifactId>spring-cloud-task-app-starters</artifactId>
-        <version>1.0.0.RELEASE</version>
+        <version>1.0.1.BUILD-SNAPSHOT</version>
     </parent>
 
     <properties>
