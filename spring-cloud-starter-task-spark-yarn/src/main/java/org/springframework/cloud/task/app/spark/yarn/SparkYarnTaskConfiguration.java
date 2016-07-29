@@ -31,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
-import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 

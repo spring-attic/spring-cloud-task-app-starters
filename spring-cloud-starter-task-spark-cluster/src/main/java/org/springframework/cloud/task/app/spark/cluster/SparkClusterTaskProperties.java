@@ -20,7 +20,6 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.task.sparkapp.common.SparkAppCommonTaskProperties;
 
 /**
  * Configuration properties to be used for cluster submission. These are in addition to the ones
