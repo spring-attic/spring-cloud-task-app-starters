@@ -17,7 +17,7 @@
     <description>Spring Cloud Task App Starters Dependencies</description>
 
     <properties>
-        <spring-data-hadoop.version>2.4.0.M1</spring-data-hadoop.version>
+        <spring-data-hadoop.version>2.4.0.RELEASE</spring-data-hadoop.version>
     </properties>
 
     <dependencyManagement>
