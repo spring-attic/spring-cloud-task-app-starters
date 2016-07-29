@@ -3,7 +3,7 @@
     <parent>
         <artifactId>spring-cloud-task-app-starters</artifactId>
         <groupId>org.springframework.cloud.task.app</groupId>
-        <version>1.0.0.BUILD-SNAPSHOT</version>
+        <version>1.0.0.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -69,9 +69,9 @@
                                 </dependency>
                             </forceDependencies>
                         </spark-cluster-task>
-                        <spark-yarn-task/>
-                        <sqoop-job-task/>
-                        <sqoop-tool-task/>
+                        <spark-yarn-task />
+                        <sqoop-job-task />
+                        <sqoop-tool-task />
                     </generatedApps>
                 </configuration>
             </plugin>

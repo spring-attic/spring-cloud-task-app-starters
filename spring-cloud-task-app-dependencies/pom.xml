@@ -11,7 +11,7 @@
 
     <groupId>org.springframework.cloud.task.app</groupId>
     <artifactId>spring-cloud-task-app-dependencies</artifactId>
-    <version>1.0.0.BUILD-SNAPSHOT</version>
+    <version>1.0.0.RELEASE</version>
     <packaging>pom</packaging>
     <name>spring-cloud-task-app-dependencies</name>
     <description>Spring Cloud Task App Starters Dependencies</description>
@@ -26,49 +26,49 @@
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-timestamp</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>1.0.0.RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-spark-client</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>1.0.0.RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-spark-cluster</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>1.0.0.RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-spark-yarn</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>1.0.0.RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-sqoop-job</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>1.0.0.RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-starter-task-sqoop-tool</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>1.0.0.RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-task-spark-common</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>1.0.0.RELEASE</version>
             </dependency>
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
                 <artifactId>spring-cloud-task-sqoop-common</artifactId>
-                <version>1.0.0.BUILD-SNAPSHOT</version>
+                <version>1.0.0.RELEASE</version>
             </dependency>
 
             <dependency>
