@@ -10,7 +10,7 @@
     <parent>
         <groupId>org.springframework.cloud.task.app</groupId>
         <artifactId>spring-cloud-task-app-starters</artifactId>
-        <version>1.0.1.RELEASE</version>
+        <version>1.0.2.BUILD-SNAPSHOT</version>
     </parent>
 
     <properties>
@@ -86,7 +86,7 @@
             <artifactId>spring-cloud-task-sqoop-common</artifactId>
             <classifier>tests</classifier>
             <scope>test</scope>
-            <version>1.0.1.RELEASE</version>
+            <version>1.0.2.BUILD-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.sqoop</groupId>
