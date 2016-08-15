@@ -43,9 +43,9 @@ import org.springframework.util.StringUtils;
  */
 public class HdfsTextItemWriterFactory implements FactoryBean<HdfsTextItemWriter>, InitializingBean {
 
-	public static final String RM_MANAGER_PRINCIPLE = "rm-manager-principal";
-	public static final String NAMENODE_PRINCIPLE = "namenode-principal";
-	public static final String USER_PRINCIPLE = "user-principal";
+	public static final String RM_MANAGER_PRINCIPAL = "rm-manager-principal";
+	public static final String NAMENODE_PRINCIPAL = "namenode-principal";
+	public static final String USER_PRINCIPAL = "user-principal";
 	public static final String USER_KEYTAB = "user-keytab";
 	public static final String SECURITY_METHOD = "security-method";
 	public static final String PROPERTIES_LOCATION = "properties-location";
@@ -81,14 +81,14 @@ public class HdfsTextItemWriterFactory implements FactoryBean<HdfsTextItemWriter
 		if (StringUtils.hasText(props.getFsUri())) {
 			configuration.set(CommonConfigurationKeysPublic.FS_DEFAULT_NAME_KEY, props.getFsUri());
 		}
-		if (StringUtils.hasText(props.getRmManagerPrinciple())) {
-			configuration.set(RM_MANAGER_PRINCIPLE, props.getRmManagerPrinciple());
+		if (StringUtils.hasText(props.getRmManagerPrincipal())) {
+			configuration.set(RM_MANAGER_PRINCIPAL, props.getRmManagerPrincipal());
 		}
-		if (StringUtils.hasText(props.getNameNodePrinciple())) {
-			configuration.set(NAMENODE_PRINCIPLE, props.getNameNodePrinciple());
+		if (StringUtils.hasText(props.getNameNodePrincipal())) {
+			configuration.set(NAMENODE_PRINCIPAL, props.getNameNodePrincipal());
 		}
-		if (StringUtils.hasText(props.getUserPrinciple())) {
-			configuration.set(USER_PRINCIPLE, props.getUserPrinciple());
+		if (StringUtils.hasText(props.getUserPrincipal())) {
+			configuration.set(USER_PRINCIPAL, props.getUserPrincipal());
 		}
 		if (StringUtils.hasText(props.getUserKeyTab())) {
 			configuration.set(USER_KEYTAB, props.getUserKeyTab());

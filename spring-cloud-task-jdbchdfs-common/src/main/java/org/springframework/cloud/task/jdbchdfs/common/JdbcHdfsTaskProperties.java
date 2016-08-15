@@ -22,7 +22,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Establishes the Configuration Properties for the JdbcHdfs task.
  * @author Glenn Renfro
  */
-@ConfigurationProperties
+@ConfigurationProperties("jdbchdfs")
 public class JdbcHdfsTaskProperties {
 
 	public static final String DEFAULT_FS_URI = "hdfs://localhost:8020";
@@ -41,49 +41,117 @@ public class JdbcHdfsTaskProperties {
 
 	public static final int DEFAULT_COMMIT_INTERVAL = 1000;
 
+	public static final int DEFAULT_MAX_WORKERS = 2;
+
+	/**
+	 * The URI to the hadoop file system.
+	 */
 	private String fsUri = DEFAULT_FS_URI;
 
+	/**
+	 * The properties location to be used.
+	 */
 	private String propertiesLocation;
 
+	/**
+	 * The security method to be used.
+	 */
 	private String securityMethod;
 
+	/**
+	 * The user key tab to be used.
+	 */
 	private String userKeyTab;
 
-	private String userPrinciple;
+	/**
+	 * The user principal to be used.
+	 */
+	private String userPrincipal;
 
-	private String nameNodePrinciple;
+	/**
+	 * The name node principal to be used.
+	 */
+	private String nameNodePrincipal;
 
-	private String rmManagerPrinciple;
+	/**
+	 * The rm manager principal to be used.
+	 */
+	private String rmManagerPrincipal;
 
+	/**
+	 * The register url handler to be used.
+	 */
 	private String registerUrlHandler;
 
+	/**
+	 * The number of partitions to be created.
+	 */
 	private int partitions = DEFAULT_PARTITION_COUNT;
 
+	/**
+	 * The name of the file to be written to the file system.
+	 */
 	private String fileName = DEFAULT_FILE_NAME;
 
+	/**
+	 * The number of bytes to be written before file rolls over.
+	 */
 	private long rollover = DEFAULT_ROLLOVER;
 
+	/**
+	 * The directory the files are to be written.
+	 */
 	private String directory = DEFAULT_DIRECTORY;
 
+	/**
+	 * The extension that will be applied to the files.
+	 */
 	private String fileExtension = DEFAULT_FILE_EXTENSION;
 
+	/**
+	 * The name of the table to be queried.
+	 */
 	private String tableName;
 
+	/**
+	 * The name of the columns to be queried.
+	 */
 	private String columnNames;
 
+	/**
+	 * Sql to be used to retrieve the data.
+	 */
 	private String sql;
 
+	/**
+	 * The commit interval for the application.
+	 */
 	private int commitInterval = DEFAULT_COMMIT_INTERVAL;
 
+	/**
+	 * The delimiter used to split the columns of data in the output file.
+	 */
 	private String delimiter = DEFAULT_DELIMITER;
 
+	/**
+	 * The name of the column used to partition the data.
+	 */
 	private String partitionColumn;
 
+	/**
+	 * The name of the column used to determine if the data should be read.
+	 */
 	private String checkColumn;
 
+	/**
+	 * Is the batch job restartable.
+	 */
 	private boolean restartable;
 
-	private int maxWorkers = 2;
+	/**
+	 * Maximum number of concurrent workers.
+	 */
+	private int maxWorkers = DEFAULT_MAX_WORKERS;
 
 	public String getFsUri() {
 		return fsUri;
@@ -117,28 +185,28 @@ public class JdbcHdfsTaskProperties {
 		this.userKeyTab = userKeyTab;
 	}
 
-	public String getUserPrinciple() {
-		return userPrinciple;
+	public String getUserPrincipal() {
+		return userPrincipal;
 	}
 
-	public void setUserPrinciple(String userPrinciple) {
-		this.userPrinciple = userPrinciple;
+	public void setUserPrincipal(String userPrincipal) {
+		this.userPrincipal = userPrincipal;
 	}
 
-	public String getNameNodePrinciple() {
-		return nameNodePrinciple;
+	public String getNameNodePrincipal() {
+		return nameNodePrincipal;
 	}
 
-	public void setNameNodePrinciple(String nameNodePrinciple) {
-		this.nameNodePrinciple = nameNodePrinciple;
+	public void setNameNodePrincipal(String nameNodePrincipal) {
+		this.nameNodePrincipal = nameNodePrincipal;
 	}
 
-	public String getRmManagerPrinciple() {
-		return rmManagerPrinciple;
+	public String getRmManagerPrincipal() {
+		return rmManagerPrincipal;
 	}
 
-	public void setRmManagerPrinciple(String rmManagerPrinciple) {
-		this.rmManagerPrinciple = rmManagerPrinciple;
+	public void setRmManagerPrincipal(String rmManagerPrincipal) {
+		this.rmManagerPrincipal = rmManagerPrincipal;
 	}
 
 	public String getRegisterUrlHandler() {
