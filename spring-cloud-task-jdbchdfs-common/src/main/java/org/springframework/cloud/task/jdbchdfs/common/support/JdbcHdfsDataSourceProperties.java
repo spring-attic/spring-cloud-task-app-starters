@@ -22,110 +22,58 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Establishes the Configuration Properties for the JdbcHdfs task datasources.
  * @author Glenn Renfro
  */
-@ConfigurationProperties("jdbchdfs.db")
+@ConfigurationProperties("jdbchdfs.datasource")
 public class JdbcHdfsDataSourceProperties {
-
-	/**
-	 * The url of the datasource that will be used by spring cloud task to record task and job information.
-	 */
-	private String task_datasource_url;
-
-	/**
-	 * The driver of the datasource that will be used by spring cloud task to record task and job information.
-	 */
-	private String task_datasource_driverClassName;
-
-	/**
-	 * The username of the datasource that will be used by spring cloud task to record task and job information.
-	 */
-	private String task_datasource_username;
-
-	/**
-	 * The password of the datasource that will be used by spring cloud task to record task and job information.
-	 */
-	private String task_datasource_password;
 
 	/**
 	 * The url of the datasource that will be used by jdbhdfs app to retrieve table input.
 	 */
-	private String jdbchdfs_datasource_url;
+	private String url;
 
 	/**
 	 * The driver of the datasource that will be used by jdbhdfs app to retrieve table input.
 	 */
-	private String jdbchdfs_datasource_driverClassName;
+	private String driverClassName;
 
 	/**
 	 * The username of the datasource that will be used by jdbhdfs app to retrieve table input.
 	 */
-	private String jdbchdfs_datasource_username;
+	private String username;
 
 	/**
 	 * The password of the datasource that will be used by jdbhdfs app to retrieve table input.
 	 */
-	private String jdbchdfs_datasource_password;
+	private String password;
 
-	public String getTask_datasource_url() {
-		return task_datasource_url;
+	public String getUrl() {
+		return url;
 	}
 
-	public void setTask_datasource_url(String task_datasource_url) {
-		this.task_datasource_url = task_datasource_url;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
-	public String getTask_datasource_driverClassName() {
-		return task_datasource_driverClassName;
+	public String getDriverClassName() {
+		return driverClassName;
 	}
 
-	public void setTask_datasource_driverClassName(String task_datasource_driverClassName) {
-		this.task_datasource_driverClassName = task_datasource_driverClassName;
+	public void setDriverClassName(String driverClassName) {
+		this.driverClassName = driverClassName;
 	}
 
-	public String getTask_datasource_username() {
-		return task_datasource_username;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setTask_datasource_username(String task_datasource_username) {
-		this.task_datasource_username = task_datasource_username;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getTask_datasource_password() {
-		return task_datasource_password;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setTask_datasource_password(String task_datasource_password) {
-		this.task_datasource_password = task_datasource_password;
-	}
-
-	public String getJdbchdfs_datasource_url() {
-		return jdbchdfs_datasource_url;
-	}
-
-	public void setJdbchdfs_datasource_url(String jdbchdfs_datasource_url) {
-		this.jdbchdfs_datasource_url = jdbchdfs_datasource_url;
-	}
-
-	public String getJdbchdfs_datasource_driverClassName() {
-		return jdbchdfs_datasource_driverClassName;
-	}
-
-	public void setJdbchdfs_datasource_driverClassName(String jdbchdfs_datasource_driverClassName) {
-		this.jdbchdfs_datasource_driverClassName = jdbchdfs_datasource_driverClassName;
-	}
-
-	public String getJdbchdfs_datasource_username() {
-		return jdbchdfs_datasource_username;
-	}
-
-	public void setJdbchdfs_datasource_username(String jdbchdfs_datasource_username) {
-		this.jdbchdfs_datasource_username = jdbchdfs_datasource_username;
-	}
-
-	public String getJdbchdfs_datasource_password() {
-		return jdbchdfs_datasource_password;
-	}
-
-	public void setJdbchdfs_datasource_password(String jdbchdfs_datasource_password) {
-		this.jdbchdfs_datasource_password = jdbchdfs_datasource_password;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

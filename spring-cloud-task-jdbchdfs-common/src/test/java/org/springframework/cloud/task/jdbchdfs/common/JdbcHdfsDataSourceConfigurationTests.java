@@ -18,6 +18,7 @@ package org.springframework.cloud.task.jdbchdfs.common;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 import javax.sql.DataSource;
 
 import org.junit.After;
@@ -28,6 +29,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.task.jdbchdfs.common.support.JdbcHdfsDataSourceConfiguration;
 import org.springframework.cloud.task.jdbchdfs.common.support.JdbcHdfsDataSourceProperties;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.PropertiesPropertySource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -72,11 +75,13 @@ public class JdbcHdfsDataSourceConfigurationTests {
 	 */
 	@Test
 	public void testTaskDataSource() throws SQLException{
-		this.props.setTask_datasource_url("jdbc:hsqldb:mem:task");
-		this.props.setTask_datasource_password("");
-		this.props.setTask_datasource_username("sa");
-		this.props.setTask_datasource_driverClassName("org.hsqldb.jdbc.JDBCDriver");
+		Properties properties = new Properties();
+		properties.put("spring.datasource.url","jdbc:hsqldb:mem:task");
+		properties.put("spring.datasource.driverClassName","org.hsqldb.jdbc.JDBCDriver");
+		properties.put("spring.datasource.username","sa");
+		properties.put("spring.datasource.password","");
 
+		context.getEnvironment().getPropertySources().addFirst(new PropertiesPropertySource("options", properties));
 		context.register(JdbcHdfsDataSourceConfiguration.class);
 		JdbcHdfsDataSourceConfiguration config = context.getBean(JdbcHdfsDataSourceConfiguration.class);
 		DataSource dataSource = config.taskDataSource();
@@ -102,10 +107,10 @@ public class JdbcHdfsDataSourceConfigurationTests {
 	 */
 	@Test
 	public void testJdbcHdfsDataSource() throws SQLException{
-		this.props.setJdbchdfs_datasource_url("jdbc:hsqldb:mem:jdbchdfs");
-		this.props.setJdbchdfs_datasource_password("");
-		this.props.setJdbchdfs_datasource_username("sa");
-		this.props.setJdbchdfs_datasource_driverClassName("org.hsqldb.jdbc.JDBCDriver");
+		this.props.setUrl("jdbc:hsqldb:mem:jdbchdfs");
+		this.props.setPassword("");
+		this.props.setUsername("sa");
+		this.props.setDriverClassName("org.hsqldb.jdbc.JDBCDriver");
 
 		context.register(JdbcHdfsDataSourceConfiguration.class);
 		JdbcHdfsDataSourceConfiguration config = context.getBean(JdbcHdfsDataSourceConfiguration.class);

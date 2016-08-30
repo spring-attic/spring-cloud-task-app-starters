@@ -50,11 +50,13 @@ import org.springframework.cloud.task.configuration.DefaultTaskConfigurer;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.cloud.task.configuration.TaskConfigurer;
 import org.springframework.cloud.task.jdbchdfs.common.support.JdbcHdfsDataSourceConfiguration;
+import org.springframework.cloud.task.repository.support.TaskRepositoryInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Establishes the beans required to migrate the data from jdbc to hdfs.
@@ -227,6 +229,13 @@ public class JdbcHdfsConfiguration {
 	@Bean
 	public DefaultBatchConfigurer batchConfigurer() {
 		return new DefaultBatchConfigurer(this.taskDataSource);
+	}
+
+	@Bean
+	public TaskRepositoryInitializer taskRepositoryInitializer() {
+		TaskRepositoryInitializer taskRepositoryInitializer = new TaskRepositoryInitializer();
+		taskRepositoryInitializer.setDataSource(this.taskDataSource);
+		return taskRepositoryInitializer;
 	}
 
 	@Bean

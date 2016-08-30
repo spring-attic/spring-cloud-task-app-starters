@@ -11,14 +11,14 @@ either supply the select statement by setting the sql parameter, or you can supp
 The **$$jdbchdfs$$** $$task$$ has the following options:
 
 //tag::configuration-properties[]
-$$jdbchdfs.db.jdbchdfs_datasource_password$$:: $$The password of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$<none>$$`)*
-$$jdbchdfs.db.task_datasource_password$$:: $$The password of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
-$$jdbchdfs.db.jdbchdfs_datasource_driver-class-name$$:: $$The driver of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$<none>$$`)*
-$$jdbchdfs.db.task_datasource_url$$:: $$The url of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
-$$jdbchdfs.db.jdbchdfs_datasource_username $$:: $$The username of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$<none>$$`)*
-$$jdbchdfs.db.task_datasource_username$$:: $$The username of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
-$$jdbchdfs.db.task_datasource_driver-class-name$$:: $$The driver of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
-$$jdbchdfs.db.jdbchdfs_datasource_url$$:: $$The url of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$<none>$$`)*
+$$jdbchdfs.datasource.password$$:: $$The password of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$value of spring.datasource.password$$`)*
+$$jdbchdfs.datasource.driverClassName$$:: $$The driver of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$value of spring.datasource.driverClassName$$`)*
+$$jdbchdfs.datasource.username$$:: $$The username of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$value of spring.datasource.username$$`)*
+$$jdbchdfs.datasource.url$$:: $$The url of the datasource that will be used by jdbhdfs app to retrieve table input.$$ *($$String$$, default: `$$value of spring.datasource.url$$`)*
+$$spring.datasource.password$$:: $$The password of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
+$$spring.datasource.url$$:: $$The url of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
+$$spring.datasource.username$$:: $$The username of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
+$$spring.datasource.driverClassName$$:: $$The driver of the datasource that will be used by spring cloud task to record task and job information.$$ *($$String$$, default: `$$<none>$$`)*
 $$jdbchdfs.user-key-tab$$:: $$The user key tab to be used.$$ *($$String$$, default: `$$<none>$$`)*
 $$jdbchdfs.column-names$$:: $$The name of the columns to be queried.$$ *($$String$$, default: `$$<none>$$`)*
 $$jdbchdfs.fs-uri$$:: $$The URI to the hadoop file system.$$ *($$String$$, default: `$$hdfs://localhost:8020$$`)*
@@ -43,5 +43,8 @@ $$jdbchdfs.max-workers $$:: $$Maximum number of concurrent workers.$$ *($$Intege
 $$jdbchdfs.sql$$:: $$Sql to be used to retrieve the data.$$ *($$String$$, default: `$$<none>$$`)*
 
 //end::configuration-properties[]
+
+NOTE: If the jdbchdfs.datasource properties are not set the application will use the spring.datasource properties as
+the settings for the datasource that retrieves table data.
 
 //end::ref-doc[]

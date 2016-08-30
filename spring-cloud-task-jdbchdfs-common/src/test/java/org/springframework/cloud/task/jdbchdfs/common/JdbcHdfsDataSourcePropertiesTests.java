@@ -35,13 +35,9 @@ import static org.junit.Assert.assertNull;
  */
 public class JdbcHdfsDataSourcePropertiesTests {
 	private static final String DRIVER_CLASS_ONE = "driverClassOne";
-	private static final String DRIVER_CLASS_TWO = "driverClassTwo";
 	private static final String USER_NAME_ONE= "userNameOne";
-	private static final String USER_NAME_TWO = "userNameTwo";
 	private static final String PASSWORD_ONE= "passwordOne";
-	private static final String PASSWORD_TWO = "passwordTwo";
 	private static final String URL_ONE= "urlOne";
-	private static final String URL_TWO = "urlTwo";
 
 
 	/**
@@ -53,14 +49,10 @@ public class JdbcHdfsDataSourcePropertiesTests {
 		context.register(Conf.class);
 		context.refresh();
 		JdbcHdfsDataSourceProperties properties = context.getBean(JdbcHdfsDataSourceProperties.class);
-		assertNull(properties.getJdbchdfs_datasource_driverClassName());
-		assertNull(properties.getJdbchdfs_datasource_password());
-		assertNull(properties.getJdbchdfs_datasource_url());
-		assertNull(properties.getJdbchdfs_datasource_username());
-		assertNull(properties.getTask_datasource_driverClassName());
-		assertNull(properties.getTask_datasource_password());
-		assertNull(properties.getTask_datasource_url());
-		assertNull(properties.getTask_datasource_username());
+		assertNull(properties.getDriverClassName());
+		assertNull(properties.getPassword());
+		assertNull(properties.getUrl());
+		assertNull(properties.getUsername());
 	}
 
 	/**
@@ -69,22 +61,14 @@ public class JdbcHdfsDataSourcePropertiesTests {
 	@Test
 	public void testSetters() {
 		JdbcHdfsDataSourceProperties properties = new JdbcHdfsDataSourceProperties();
-		properties.setJdbchdfs_datasource_driverClassName(DRIVER_CLASS_ONE);
-		properties.setTask_datasource_driverClassName(DRIVER_CLASS_TWO);
-		properties.setJdbchdfs_datasource_username(USER_NAME_ONE);
-		properties.setTask_datasource_username(USER_NAME_TWO);
-		properties.setJdbchdfs_datasource_password(PASSWORD_ONE);
-		properties.setTask_datasource_password(PASSWORD_TWO);
-		properties.setJdbchdfs_datasource_url(URL_ONE);
-		properties.setTask_datasource_url(URL_TWO);
-		assertEquals(DRIVER_CLASS_ONE, properties.getJdbchdfs_datasource_driverClassName());
-		assertEquals(DRIVER_CLASS_TWO, properties.getTask_datasource_driverClassName());
-		assertEquals(USER_NAME_ONE, properties.getJdbchdfs_datasource_username());
-		assertEquals(USER_NAME_TWO, properties.getTask_datasource_username());
-		assertEquals(PASSWORD_ONE, properties.getJdbchdfs_datasource_password());
-		assertEquals(PASSWORD_TWO, properties.getTask_datasource_password());
-		assertEquals(URL_ONE, properties.getJdbchdfs_datasource_url());
-		assertEquals(URL_TWO, properties.getTask_datasource_url());
+		properties.setDriverClassName(DRIVER_CLASS_ONE);
+		properties.setUsername(USER_NAME_ONE);
+		properties.setPassword(PASSWORD_ONE);
+		properties.setUrl(URL_ONE);
+		assertEquals(DRIVER_CLASS_ONE, properties.getDriverClassName());
+		assertEquals(USER_NAME_ONE, properties.getUsername());
+		assertEquals(PASSWORD_ONE, properties.getPassword());
+		assertEquals(URL_ONE, properties.getUrl());
 
 	}
 

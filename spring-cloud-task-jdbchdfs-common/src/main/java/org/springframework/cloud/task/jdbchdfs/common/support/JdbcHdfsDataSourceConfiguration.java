@@ -23,9 +23,10 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 
 /**
- * Supports the datasource configurations required for the JdbcHdfs applicaiton.
+ * Supports the datasource configurations required for the JdbcHdfs application.
  *
  * @author Glenn Renfro
  */
@@ -35,22 +36,34 @@ public class JdbcHdfsDataSourceConfiguration {
 	@Autowired
 	private JdbcHdfsDataSourceProperties props;
 
+	@Autowired
+	private Environment environment;
+
 	@Bean(name="taskDataSource")
 	@Primary
 	public DataSource taskDataSource() {
-		return DataSourceBuilder.create().driverClassName(props.getTask_datasource_driverClassName())
-				.url(props.getTask_datasource_url())
-				.username(props.getTask_datasource_username())
-				.password(props.getTask_datasource_password()).build();
+		return getDefaultDataSource();
 	}
 
 
 	@Bean(name="jdbchdfsDataSource")
 	public DataSource jdbcHdfsDataSource() {
-		return DataSourceBuilder.create().driverClassName(props.getJdbchdfs_datasource_driverClassName())
-				.url(props.getJdbchdfs_datasource_url())
-				.username(props.getJdbchdfs_datasource_username())
-				.password(props.getJdbchdfs_datasource_password()).build();
+		DataSource dataSource;
+		if(props.getUrl() != null && props.getUsername() != null) {
+			dataSource = DataSourceBuilder.create().driverClassName(props.getDriverClassName())
+				.url(props.getUrl())
+				.username(props.getUsername())
+				.password(props.getPassword()).build();
+		} else {
+			dataSource = getDefaultDataSource();
+		}
+		return dataSource;
 	}
 
+	private DataSource getDefaultDataSource() {
+		return DataSourceBuilder.create().driverClassName(environment.getProperty("spring.datasource.driverClassName"))
+				.url(environment.getProperty("spring.datasource.url"))
+				.username(environment.getProperty("spring.datasource.username"))
+				.password(environment.getProperty("spring.datasource.password")).build();
+	}
 }
