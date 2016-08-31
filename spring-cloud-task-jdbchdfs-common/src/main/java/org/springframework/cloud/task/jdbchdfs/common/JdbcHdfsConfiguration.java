@@ -213,7 +213,9 @@ public class JdbcHdfsConfiguration {
 	@Profile("!worker")
 	public Job partitionedJob(PartitionHandler partitionHandler, ExecutionContextPromotionListener promotionListener,
 			 IncrementalColumnRangePartitioner partitioner) throws Exception {
-		JobBuilder jobBuilder =  this.jobBuilderFactory.get(this.context.getId());
+		String jobName = environment.getProperty("spring.cloud.task.name") != null ?
+				environment.getProperty("spring.cloud.task.name"): this.context.getId();
+		JobBuilder jobBuilder =  this.jobBuilderFactory.get(jobName);
 		if(!this.props.isRestartable()) {
 			jobBuilder.preventRestart();
 		}
