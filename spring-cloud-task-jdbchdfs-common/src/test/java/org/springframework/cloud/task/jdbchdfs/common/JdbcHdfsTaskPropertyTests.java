@@ -67,7 +67,7 @@ public class JdbcHdfsTaskPropertyTests {
 		context.register(Conf.class);
 		context.refresh();
 		JdbcHdfsTaskProperties properties = context.getBean(JdbcHdfsTaskProperties.class);
-		assertEquals(JdbcHdfsTaskProperties.DEFAULT_FS_URI, properties.getFsUri());
+		assertEquals(null, properties.getFsUri());
 		assertEquals(JdbcHdfsTaskProperties.DEFAULT_COMMIT_INTERVAL, properties.getCommitInterval());
 		assertEquals(JdbcHdfsTaskProperties.DEFAULT_DELIMITER, properties.getDelimiter());
 		assertEquals(JdbcHdfsTaskProperties.DEFAULT_PARTITION_COUNT, properties.getPartitions());

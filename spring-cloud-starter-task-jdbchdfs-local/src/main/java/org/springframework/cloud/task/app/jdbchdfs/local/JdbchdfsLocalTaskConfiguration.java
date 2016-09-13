@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-package org.springframework.cloud.task.app.jdbc.hdfs.local;
+package org.springframework.cloud.task.app.jdbchdfs.local;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.deployer.spi.local.LocalDeployerProperties;
@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @EnableConfigurationProperties({JdbcHdfsTaskProperties.class})
 @Import(JdbcHdfsConfiguration.class)
-public class JdbcHdfsLocalTaskConfiguration {
+public class JdbchdfsLocalTaskConfiguration {
 
 	@Bean
 	public TaskLauncher taskLauncher() {

@@ -25,8 +25,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("jdbchdfs")
 public class JdbcHdfsTaskProperties {
 
-	public static final String DEFAULT_FS_URI = "hdfs://localhost:8020";
-
 	public static final int DEFAULT_PARTITION_COUNT = 4;
 
 	public static final String DEFAULT_FILE_NAME = "jdbchdfs";
@@ -46,7 +44,7 @@ public class JdbcHdfsTaskProperties {
 	/**
 	 * The URI to the hadoop file system.
 	 */
-	private String fsUri = DEFAULT_FS_URI;
+	private String fsUri;
 
 	/**
 	 * The properties location to be used.

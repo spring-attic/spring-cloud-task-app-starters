@@ -103,7 +103,7 @@ public class JdbcHdfsConfiguration {
 	private ConfigurableApplicationContext context;
 
 	@Value("${jdbc.hdfs.task.resource:org.springframework.cloud.task.app:"
-			+ "jdbc-hdfs-local-task:1.0.2.BUILD-SNAPSHOT}")
+			+ "jdbchdfs-local-task:1.0.2.BUILD-SNAPSHOT}")
 	private String taskResource;
 
 	@Bean

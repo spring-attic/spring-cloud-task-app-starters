@@ -74,7 +74,7 @@
 
             <dependency>
                 <groupId>org.springframework.cloud.task.app</groupId>
-                <artifactId>spring-cloud-starter-task-jdbc-hdfs-local</artifactId>
+                <artifactId>spring-cloud-starter-task-jdbchdfs-local</artifactId>
                 <version>1.0.2.BUILD-SNAPSHOT</version>
             </dependency>
 

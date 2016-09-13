@@ -72,7 +72,7 @@
                         <spark-yarn-task/>
                         <sqoop-job-task/>
                         <sqoop-tool-task/>
-                        <jdbc-hdfs-local-task/>
+                        <jdbchdfs-local-task/>
                     </generatedApps>
                 </configuration>
             </plugin>

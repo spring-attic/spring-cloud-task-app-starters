@@ -8,7 +8,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>spring-cloud-task-jdbc-hdfs-common</artifactId>
+	<artifactId>spring-cloud-task-jdbchdfs-common</artifactId>
 	<packaging>jar</packaging>
 	<name>spring-cloud-task-jdbchdfs-common</name>
 
