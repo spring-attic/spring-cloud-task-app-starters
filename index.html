@@ -90,19 +90,35 @@ Step 4 - Verify *timestamp* application shutsdown
 
 ## Task App Starters and Spring Cloud Data Flow _(**)_
 
+With Spring Boot 1.5.x:
+
 | __Artifact Type__ | __Stable Release__ | __Milestone/Snapshot Release__ |
 | ------------------ | ------------------ | ------------------ |
-| Maven | https://bit.ly/Clark-GA-task-applications-maven | https://bit.ly/Dearborn-M1-task-applications-maven |
-| Docker | https://bit.ly/Clark-GA-task-applications-docker | https://bit.ly/Dearborn-M1-task-applications-docker |
+| Maven | https://bit.ly/Clark-GA-task-applications-maven | https://bit.ly/Clark-BUILD-SNAPSHOT-task-applications-maven |
+| Docker | https://bit.ly/Clark-GA-task-applications-docker | https://bit.ly/Clark-BUILD-SNAPSHOT-task-applications-docker |
+
+With Spring Boot 2.0.x:
+
+| __Artifact Type__ | __Stable Release__ | __Milestone/Snapshot Release__ |
+| ------------------ | ------------------ | ------------------ |
+| Maven | http://bit.ly/Dearborn-RC1-task-applications-maven | http://bit.ly/Dearborn-BUILD-SNAPSHOT-task-applications-maven |
+| Docker | http://bit.ly/Dearborn-RC1-task-applications-docker | http://bit.ly/Dearborn-BUILD-SNAPSHOT-task-applications-docker |
 
 _(**) find out how to use the app-starters in Spring Cloud Data Flow by reviewing the [app-registration](http://docs.spring.io/spring-cloud-dataflow/docs/current-SNAPSHOT/reference/htmlsingle/#_registering_a_task_application) section in the reference guide_
 
 ## HTTP Repository Location for Apps
   
 Here you will find the direct links to the uber jars for the task apps. 
+
+With Spring Boot 1.5.x:
   
 * [Stable Release](http://repo.spring.io/libs-release/org/springframework/cloud/task/app/spring-cloud-task-app-descriptor/Clark.RELEASE/spring-cloud-task-app-descriptor-Clark.RELEASE.task-apps-maven-repo-url.properties)
 * [Latest Snapshot/Milestone](http://repo.spring.io/libs-snapshot/org/springframework/cloud/task/app/spring-cloud-task-app-descriptor/Clark.BUILD-SNAPSHOT/spring-cloud-task-app-descriptor-Clark.BUILD-SNAPSHOT.task-apps-maven-repo-url.properties)
+
+With Spring Boot 2.0.x:
+
+* [Stable Release](http://repo.spring.io/libs-milestone-local/org/springframework/cloud/task/app/spring-cloud-task-app-descriptor/Dearborn.RC1/spring-cloud-task-app-descriptor-Dearborn.RC1.task-apps-maven-repo-url.properties)
+* [Latest Snapshot/Milestone](http://repo.spring.io/libs-snapshot-local/org/springframework/cloud/task/app/spring-cloud-task-app-descriptor/Dearborn.BUILD-SNAPSHOT/spring-cloud-task-app-descriptor-Dearborn.BUILD-SNAPSHOT.task-apps-maven-repo-url.properties)
   
 
 {% endcapture %}
