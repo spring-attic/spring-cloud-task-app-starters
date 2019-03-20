@@ -27,7 +27,7 @@ import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.Function2;
 
 /*
- * NOTE: Copied from the Apache Spark (http://spark.apache.org/) source code since
+ * NOTE: Copied from the Apache Spark (https://spark.apache.org/) source code since
  * this class is not available in the Maven Central repo.
  */
 
