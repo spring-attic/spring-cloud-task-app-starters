@@ -3,7 +3,7 @@
 
 This section goes into more detail about how you can work with Spring Cloud Task Starters as standalone applications or with Spring Cloud Data Flow.
 It assumes familiarity with general Spring Cloud Task concepts, which can be found in the Spring Cloud Task
-http://docs.spring.io/spring-cloud-task/current-SNAPSHOT/reference/htmlsingle/[reference documentation].
+https://docs.spring.io/spring-cloud-task/current-SNAPSHOT/reference/htmlsingle/[reference documentation].
 
 === Introduction
 
@@ -20,7 +20,7 @@ _Starters_ are libraries that contain the complete configuration of a Spring Clo
 Starters are not executable applications, and are intended to be included in other Spring Boot applications.
 
 _Prebuilt applications_ are Spring Boot applications that include the starters.
-Prebuilt applications are http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started-first-application-executable-jar[uberjars] and include minimal code required to execute standalone.
+Prebuilt applications are https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#getting-started-first-application-executable-jar[uberjars] and include minimal code required to execute standalone.
 
 [NOTE]
 Only starters are present in the source code of the project.
@@ -110,7 +110,7 @@ You have the following options:
 ===== Using generic Spring Cloud Task applications
 
 If you want to add your own custom applications to your solution, you can simply create a new Spring Cloud Task project and run it the same way as the applications provided by Spring Cloud Task Application Starters, independently or via Spring Cloud Data Flow.
-The process is described in the http://docs.spring.io/spring-cloud-task/current-SNAPSHOT/reference/htmlsingle/#getting-started#_getting_started[Getting Started Guide] of Spring Cloud Task.
+The process is described in the https://docs.spring.io/spring-cloud-task/current-SNAPSHOT/reference/htmlsingle/#getting-started#_getting_started[Getting Started Guide] of Spring Cloud Task.
 
 ===== Using the starters to create custom components
 
